@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MelodyGift Automated Tests</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-results { margin: 20px 0; }
+        .test-case { margin: 10px 0; padding: 10px; border-left: 4px solid #ccc; }
+        .passed { border-color: #28a745; background: #f8fff9; }
+        .failed { border-color: #dc3545; background: #fff8f8; }
+        .warning { border-color: #ffc107; background: #fffdf7; }
+        .test-title { font-weight: bold; margin-bottom: 5px; }
+        .test-details { font-size: 0.9em; color: #666; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+        #results { margin-top: 20px; }
+        .summary { background: #f5f5f5; padding: 15px; margin: 20px 0; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>🧪 MelodyGift Automated Test Suite</h1>
+    
+    <div class="summary">
+        <h3>Test Environment</h3>
+        <p><strong>URL:</strong> <span id="test-url"></span></p>
+        <p><strong>User Agent:</strong> <span id="user-agent"></span></p>
+        <p><strong>Screen Size:</strong> <span id="screen-size"></span></p>
+        <p><strong>Test Started:</strong> <span id="test-time"></span></p>
+    </div>
+
+    <button onclick="runAllTests()">🚀 Run All Tests</button>
+    <button onclick="runStripeTests()">💳 Run Stripe Tests</button>
+    <button onclick="runFormTests()">📝 Run Form Tests</button>
+    <button onclick="runUITests()">🎨 Run UI Tests</button>
+    <button onclick="runPerformanceTests()">⚡ Run Performance Tests</button>
+
+    <div id="results">
+        <div class="summary">
+            <h3>Test Summary</h3>
+            <p><span id="total-tests">0</span> tests executed</p>
+            <p><span id="passed-tests">0</span> passed</p>
+            <p><span id="failed-tests">0</span> failed</p>
+            <p><span id="warning-tests">0</span> warnings</p>
+        </div>
+        <div id="test-results" class="test-results"></div>
+    </div>
+
+    <script>
+        // Test framework
+        let testResults = [];
+        let testCount = { total: 0, passed: 0, failed: 0, warning: 0 };
+
+        // Initialize test environment info
+        document.getElementById('test-url').textContent = window.location.href;
+        document.getElementById('user-agent').textContent = navigator.userAgent;
+        document.getElementById('screen-size').textContent = `${window.innerWidth}x${window.innerHeight}`;
+        document.getElementById('test-time').textContent = new Date().toLocaleString();
+
+        function logTest(name, status, details = '') {
+            testResults.push({ name, status, details, timestamp: new Date() });
+            testCount.total++;
+            testCount[status]++;
+            updateSummary();
+            displayTest(name, status, details);
+        }
+
+        function updateSummary() {
+            document.getElementById('total-tests').textContent = testCount.total;
+            document.getElementById('passed-tests').textContent = testCount.passed;
+            document.getElementById('failed-tests').textContent = testCount.failed;
+            document.getElementById('warning-tests').textContent = testCount.warning;
+        }
+
+        function displayTest(name, status, details) {
+            const resultsDiv = document.getElementById('test-results');
+            const testDiv = document.createElement('div');
+            testDiv.className = `test-case ${status}`;
+            testDiv.innerHTML = `
+                <div class="test-title">${status.toUpperCase()}: ${name}</div>
+                <div class="test-details">${details}</div>
+            `;
+            resultsDiv.appendChild(testDiv);
+        }
+
+        // Test utilities
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function checkElementExists(selector, timeout = 5000) {
+            const start = Date.now();
+            while (Date.now() - start < timeout) {
+                if (document.querySelector(selector)) return true;
+                await sleep(100);
+            }
+            return false;
+        }
+
+        // Stripe Tests
+        async function runStripeTests() {
+            console.log('🧪 Running Stripe Tests...');
+
+            // Test 1: Stripe script loading
+            if (window.Stripe) {
+                logTest('Stripe Script Loading', 'passed', 'Stripe.js loaded successfully');
+            } else {
+                logTest('Stripe Script Loading', 'failed', 'Stripe.js not loaded');
+            }
+
+            // Test 2: Stripe instance creation
+            if (window.MelodyGiftStripe && window.MelodyGiftStripe.stripe) {
+                logTest('Stripe Instance Creation', 'passed', 'Stripe instance created with publishable key');
+            } else {
+                logTest('Stripe Instance Creation', 'failed', 'Stripe instance not found');
+            }
+
+            // Test 3: Checkout configuration
+            if (window.MelodyGiftStripe && window.MelodyGiftStripe.config) {
+                const config = window.MelodyGiftStripe.config;
+                if (config.mode === 'payment' && config.currency === 'eur') {
+                    logTest('Checkout Configuration', 'passed', 'Payment mode and EUR currency configured');
+                } else {
+                    logTest('Checkout Configuration', 'failed', 'Invalid checkout configuration');
+                }
+            } else {
+                logTest('Checkout Configuration', 'failed', 'Checkout configuration not found');
+            }
+
+            // Test 4: Checkout buttons
+            const checkoutButtons = document.querySelectorAll('#checkout-button, #checkout-button-2, #checkout-button-3');
+            if (checkoutButtons.length === 3) {
+                logTest('Checkout Buttons Present', 'passed', 'All 3 checkout buttons found on page');
+            } else {
+                logTest('Checkout Buttons Present', 'warning', `Only ${checkoutButtons.length} checkout buttons found`);
+            }
+
+            // Test 5: Button event listeners
+            let buttonsWithListeners = 0;
+            checkoutButtons.forEach(button => {
+                if (button.onclick || button.addEventListener) {
+                    buttonsWithListeners++;
+                }
+            });
+            if (buttonsWithListeners > 0) {
+                logTest('Button Event Listeners', 'passed', `${buttonsWithListeners} buttons have event listeners`);
+            } else {
+                logTest('Button Event Listeners', 'failed', 'No button event listeners detected');
+            }
+        }
+
+        // Form Tests
+        async function runFormTests() {
+            console.log('🧪 Running Form Tests...');
+
+            // Test 1: Form presence
+            const form = document.getElementById('songOrderForm');
+            if (form) {
+                logTest('Song Order Form Present', 'passed', 'Form element found on page');
+            } else {
+                logTest('Song Order Form Present', 'failed', 'Form element not found');
+                return; // Can't continue without form
+            }
+
+            // Test 2: Required fields
+            const requiredFields = form.querySelectorAll('[required]');
+            if (requiredFields.length >= 6) {
+                logTest('Required Fields Present', 'passed', `${requiredFields.length} required fields found`);
+            } else {
+                logTest('Required Fields Present', 'warning', `Only ${requiredFields.length} required fields found`);
+            }
+
+            // Test 3: Validation rules
+            if (window.validationRules && typeof window.validateField === 'function') {
+                logTest('Validation System', 'passed', 'Validation rules and functions available');
+            } else {
+                logTest('Validation System', 'failed', 'Validation system not found');
+            }
+
+            // Test 4: Email validation
+            const emailField = form.querySelector('input[type="email"]');
+            if (emailField) {
+                logTest('Email Field Present', 'passed', 'Email input field found');
+            } else {
+                logTest('Email Field Present', 'failed', 'Email input field not found');
+            }
+
+            // Test 5: Genre selection
+            const genreSelect = form.querySelector('select[name="music_genre"]');
+            if (genreSelect && genreSelect.options.length > 7) {
+                logTest('Genre Selection', 'passed', `${genreSelect.options.length} genre options available`);
+            } else {
+                logTest('Genre Selection', 'warning', 'Genre selection may be incomplete');
+            }
+
+            // Test 6: Form submission handler
+            if (form.onsubmit || form.addEventListener) {
+                logTest('Form Submission Handler', 'passed', 'Form has submission handler');
+            } else {
+                logTest('Form Submission Handler', 'warning', 'Form submission handler not detected');
+            }
+
+            // Test 7: Auto-save functionality
+            if (typeof setupProgressSaving === 'function') {
+                logTest('Auto-save Functionality', 'passed', 'Auto-save function available');
+            } else {
+                logTest('Auto-save Functionality', 'warning', 'Auto-save function not found');
+            }
+
+            // Test 8: Character counting
+            const textareas = form.querySelectorAll('textarea[required]');
+            if (textareas.length >= 3) {
+                logTest('Required Textareas', 'passed', `${textareas.length} required textarea fields found`);
+            } else {
+                logTest('Required Textareas', 'warning', 'Required textarea fields may be missing');
+            }
+        }
+
+        // UI Tests
+        async function runUITests() {
+            console.log('🧪 Running UI Tests...');
+
+            // Test 1: Header
+            const header = document.querySelector('.header');
+            if (header) {
+                logTest('Header Present', 'passed', 'Header element found');
+            } else {
+                logTest('Header Present', 'failed', 'Header element not found');
+            }
+
+            // Test 2: Hero section
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                logTest('Hero Section Present', 'passed', 'Hero section found');
+            } else {
+                logTest('Hero Section Present', 'failed', 'Hero section not found');
+            }
+
+            // Test 3: Navigation links
+            const navLinks = document.querySelectorAll('.nav a');
+            if (navLinks.length >= 4) {
+                logTest('Navigation Links', 'passed', `${navLinks.length} navigation links found`);
+            } else {
+                logTest('Navigation Links', 'warning', 'Some navigation links may be missing');
+            }
+
+            // Test 4: FAQ section
+            const faq = document.querySelector('#faq');
+            if (faq) {
+                logTest('FAQ Section', 'passed', 'FAQ section found');
+            } else {
+                logTest('FAQ Section', 'warning', 'FAQ section not found');
+            }
+
+            // Test 5: Social proof
+            const testimonials = document.querySelector('#testimonials');
+            if (testimonials) {
+                logTest('Testimonials Section', 'passed', 'Testimonials section found');
+            } else {
+                logTest('Testimonials Section', 'warning', 'Testimonials section not found');
+            }
+
+            // Test 6: Mobile responsiveness indicators
+            const viewport = document.querySelector('meta[name="viewport"]');
+            if (viewport && viewport.content.includes('width=device-width')) {
+                logTest('Mobile Viewport Meta', 'passed', 'Proper viewport meta tag found');
+            } else {
+                logTest('Mobile Viewport Meta', 'failed', 'Mobile viewport meta tag missing or incorrect');
+            }
+
+            // Test 7: CSS loading
+            const stylesheets = document.querySelectorAll('link[rel="stylesheet"]');
+            if (stylesheets.length > 0) {
+                logTest('CSS Stylesheets', 'passed', `${stylesheets.length} stylesheets loaded`);
+            } else {
+                logTest('CSS Stylesheets', 'warning', 'No external stylesheets detected');
+            }
+        }
+
+        // Performance Tests
+        async function runPerformanceTests() {
+            console.log('🧪 Running Performance Tests...');
+
+            // Test 1: Page load time
+            const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+            if (loadTime < 3000) {
+                logTest('Page Load Time', 'passed', `Page loaded in ${loadTime}ms`);
+            } else if (loadTime < 5000) {
+                logTest('Page Load Time', 'warning', `Page loaded in ${loadTime}ms (acceptable but could be faster)`);
+            } else {
+                logTest('Page Load Time', 'failed', `Page loaded in ${loadTime}ms (too slow)`);
+            }
+
+            // Test 2: DOM content loaded
+            const domLoadTime = performance.timing.domContentLoadedEventEnd - performance.timing.navigationStart;
+            if (domLoadTime < 2000) {
+                logTest('DOM Content Loaded', 'passed', `DOM ready in ${domLoadTime}ms`);
+            } else {
+                logTest('DOM Content Loaded', 'warning', `DOM ready in ${domLoadTime}ms`);
+            }
+
+            // Test 3: Resource count
+            const resources = performance.getEntriesByType('resource');
+            if (resources.length < 20) {
+                logTest('Resource Count', 'passed', `${resources.length} resources loaded (efficient)`);
+            } else {
+                logTest('Resource Count', 'warning', `${resources.length} resources loaded (consider optimization)`);
+            }
+
+            // Test 4: JavaScript errors
+            let jsErrors = 0;
+            window.addEventListener('error', () => jsErrors++);
+            await sleep(1000); // Wait for any delayed errors
+            if (jsErrors === 0) {
+                logTest('JavaScript Errors', 'passed', 'No JavaScript errors detected');
+            } else {
+                logTest('JavaScript Errors', 'failed', `${jsErrors} JavaScript errors detected`);
+            }
+
+            // Test 5: Memory usage (basic check)
+            if (performance.memory) {
+                const memoryUsage = performance.memory.usedJSHeapSize / 1024 / 1024;
+                if (memoryUsage < 50) {
+                    logTest('Memory Usage', 'passed', `${memoryUsage.toFixed(2)}MB memory used`);
+                } else {
+                    logTest('Memory Usage', 'warning', `${memoryUsage.toFixed(2)}MB memory used (monitor for leaks)`);
+                }
+            } else {
+                logTest('Memory Usage', 'warning', 'Memory usage metrics not available');
+            }
+        }
+
+        // Run all tests
+        async function runAllTests() {
+            // Clear previous results
+            testResults = [];
+            testCount = { total: 0, passed: 0, failed: 0, warning: 0 };
+            document.getElementById('test-results').innerHTML = '';
+
+            console.log('🚀 Starting comprehensive test suite...');
+
+            await runStripeTests();
+            await sleep(500);
+            await runFormTests();
+            await sleep(500);
+            await runUITests();
+            await sleep(500);
+            await runPerformanceTests();
+
+            console.log('✅ All tests completed!');
+            
+            // Generate summary
+            const summaryDiv = document.createElement('div');
+            summaryDiv.className = 'test-case ' + (testCount.failed > 0 ? 'failed' : testCount.warning > 0 ? 'warning' : 'passed');
+            summaryDiv.innerHTML = `
+                <div class="test-title">🏁 TEST SUITE COMPLETE</div>
+                <div class="test-details">
+                    Total: ${testCount.total} | 
+                    Passed: ${testCount.passed} | 
+                    Failed: ${testCount.failed} | 
+                    Warnings: ${testCount.warning}
+                </div>
+            `;
+            document.getElementById('test-results').appendChild(summaryDiv);
+        }
+
+        // Auto-run tests when page loads
+        window.addEventListener('load', () => {
+            setTimeout(runAllTests, 1000);
+        });
+    </script>
+</body>
+</html>

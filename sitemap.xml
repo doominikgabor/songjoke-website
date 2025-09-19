@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+  <!-- Main landing page -->
+  <url>
+    <loc>https://melodygift.netlify.app/</loc>
+    <lastmod>2024-09-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Alternative URLs for SEO (all redirect to main page) -->
+  <url>
+    <loc>https://melodygift.netlify.app/funny-birthday-gifts</loc>
+    <lastmod>2024-09-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://melodygift.netlify.app/personalized-songs</loc>
+    <lastmod>2024-09-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://melodygift.netlify.app/custom-music</loc>
+    <lastmod>2024-09-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://melodygift.netlify.app/birthday-songs</loc>
+    <lastmod>2024-09-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Note: success.html and thank-you.html are intentionally excluded -->
+  <!-- These are private/conversion pages that shouldn't be indexed -->
+
+</urlset>

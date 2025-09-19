@@ -1,0 +1,47 @@
+# Netlify Redirects for SongJoke
+
+# Clean URLs - remove .html extension
+/success   /success.html   200
+/thank-you /thank-you.html 200
+
+# SEO redirects for common alternative URLs
+/home           /             301
+/index          /             301
+/order          /             301
+/buy            /             301
+/purchase       /             301
+/payment        /             301
+/checkout       /             301
+
+# Redirect old or alternative paths
+/funny-birthday-gifts     /    301
+/personalized-songs       /    301
+/custom-music            /    301
+/birthday-songs          /    301
+
+# Handle trailing slashes
+/success/    /success.html    301
+/thank-you/  /thank-you.html  301
+
+# 404 fallback - serve main page for unknown routes
+/*    /index.html   404
+
+# Security redirects - block common attack patterns
+/wp-admin/*           /    404
+/administrator/*      /    404
+/.env                 /    404
+/config/*             /    404
+/.git/*               /    404
+
+# API endpoints that don't exist (prevent confusion)
+/api/*               /    404
+/stripe/webhook      /    404
+
+# Force HTTPS (handled by Netlify by default, but explicit is good)
+http://songjoke.netlify.app/*  https://songjoke.netlify.app/:splat  301!
+http://www.songjoke.netlify.app/*  https://songjoke.netlify.app/:splat  301!
+
+# Handle old query parameters for tracking
+/?utm_source=*  /  200
+/success?*      /success.html  200
+/thank-you?*    /thank-you.html 200

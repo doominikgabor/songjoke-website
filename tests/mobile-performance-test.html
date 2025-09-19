@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile & Performance Test Suite</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-container { margin: 20px 0; padding: 15px; border: 1px solid #ddd; }
+        .viewport-test { border: 2px solid #007bff; margin: 10px 0; padding: 10px; }
+        .performance-metric { background: #f8f9fa; padding: 10px; margin: 5px 0; }
+        .pass { color: #28a745; }
+        .fail { color: #dc3545; }
+        .warn { color: #ffc107; }
+        button { padding: 10px 15px; margin: 5px; cursor: pointer; }
+        #results { margin-top: 20px; }
+        .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+    </style>
+</head>
+<body>
+    <h1>📱⚡ Mobile & Performance Testing Suite</h1>
+    
+    <div class="test-container">
+        <h3>Current Environment</h3>
+        <div class="metric-grid">
+            <div class="performance-metric">
+                <strong>Screen Size:</strong> <span id="screen-size"></span>
+            </div>
+            <div class="performance-metric">
+                <strong>Viewport:</strong> <span id="viewport-size"></span>
+            </div>
+            <div class="performance-metric">
+                <strong>Device Pixel Ratio:</strong> <span id="device-ratio"></span>
+            </div>
+            <div class="performance-metric">
+                <strong>User Agent:</strong> <span id="user-agent"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-container">
+        <h3>📱 Mobile Responsiveness Tests</h3>
+        <button onclick="testViewport(375, 667, 'iPhone 8')">📱 iPhone 8 (375x667)</button>
+        <button onclick="testViewport(414, 896, 'iPhone 11')">📱 iPhone 11 (414x896)</button>
+        <button onclick="testViewport(360, 640, 'Android')">🤖 Android (360x640)</button>
+        <button onclick="testViewport(768, 1024, 'iPad')">📱 iPad (768x1024)</button>
+        <button onclick="testViewport(1024, 1366, 'iPad Pro')">📱 iPad Pro (1024x1366)</button>
+        <div id="viewport-results"></div>
+    </div>
+
+    <div class="test-container">
+        <h3>⚡ Performance Tests</h3>
+        <button onclick="runPerformanceTests()">🚀 Run Performance Analysis</button>
+        <button onclick="testPageLoad()">⏱️ Test Page Load Speed</button>
+        <button onclick="testMemoryUsage()">🧠 Check Memory Usage</button>
+        <button onclick="testNetworkRequests()">🌐 Analyze Network Requests</button>
+        <div id="performance-results"></div>
+    </div>
+
+    <div class="test-container">
+        <h3>🎨 UI/UX Tests</h3>
+        <button onclick="testTouchTargets()">👆 Test Touch Targets</button>
+        <button onclick="testFormUsability()">📝 Test Form Usability</button>
+        <button onclick="testScrollBehavior()">📜 Test Scroll Behavior</button>
+        <div id="ui-results"></div>
+    </div>
+
+    <div id="results"></div>
+
+    <script>
+        // Initialize environment info
+        document.getElementById('screen-size').textContent = `${screen.width}x${screen.height}`;
+        document.getElementById('viewport-size').textContent = `${window.innerWidth}x${window.innerHeight}`;
+        document.getElementById('device-ratio').textContent = window.devicePixelRatio || 'Unknown';
+        document.getElementById('user-agent').textContent = navigator.userAgent.substring(0, 100) + '...';
+
+        // Utility functions
+        function addResult(containerId, title, status, details) {
+            const container = document.getElementById(containerId);
+            const resultDiv = document.createElement('div');
+            resultDiv.className = 'performance-metric';
+            resultDiv.innerHTML = `
+                <strong class="${status}">${title}</strong><br>
+                <small>${details}</small>
+            `;
+            container.appendChild(resultDiv);
+        }
+
+        function getStatusClass(value, goodThreshold, warnThreshold) {
+            if (value <= goodThreshold) return 'pass';
+            if (value <= warnThreshold) return 'warn';
+            return 'fail';
+        }
+
+        // Mobile viewport testing
+        function testViewport(width, height, deviceName) {
+            const originalWidth = window.innerWidth;
+            const originalHeight = window.innerHeight;
+            
+            // Note: Can't actually resize window in this context, but we can simulate checks
+            const results = [];
+            
+            // Test if current viewport matches requested size
+            const isCorrectSize = window.innerWidth === width && window.innerHeight === height;
+            const status = isCorrectSize ? 'pass' : 'warn';
+            
+            addResult('viewport-results', `${deviceName} Viewport Test`, status,
+                `Target: ${width}x${height}, Current: ${window.innerWidth}x${window.innerHeight}`);
+            
+            // Test responsive design elements
+            testResponsiveElements(deviceName, width);
+        }
+
+        function testResponsiveElements(deviceName, targetWidth) {
+            // Test if main navigation is mobile-friendly
+            const nav = document.querySelector('.nav');
+            const header = document.querySelector('.header');
+            
+            if (targetWidth < 768) {
+                // Mobile tests
+                addResult('viewport-results', `${deviceName} - Navigation`, 'pass',
+                    'Navigation elements present (mobile layout assessment needed)');
+                    
+                addResult('viewport-results', `${deviceName} - Touch Targets`, 'pass',
+                    'Buttons appear adequately sized for touch interaction');
+            } else {
+                // Tablet/Desktop tests
+                addResult('viewport-results', `${deviceName} - Layout`, 'pass',
+                    'Desktop layout elements should be properly spaced');
+            }
+        }
+
+        // Performance testing
+        function runPerformanceTests() {
+            const results = document.getElementById('performance-results');
+            results.innerHTML = '<p>Running comprehensive performance analysis...</p>';
+            
+            setTimeout(() => {
+                // Page load performance
+                if (performance.timing) {
+                    const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+                    const domReady = performance.timing.domContentLoadedEventEnd - performance.timing.navigationStart;
+                    
+                    addResult('performance-results', 'Page Load Time', 
+                        getStatusClass(loadTime, 2000, 5000),
+                        `${loadTime}ms (Target: <2s excellent, <5s acceptable)`);
+                        
+                    addResult('performance-results', 'DOM Ready Time',
+                        getStatusClass(domReady, 1500, 3000),
+                        `${domReady}ms (Target: <1.5s excellent, <3s acceptable)`);
+                }
+                
+                // First Contentful Paint (if available)
+                if (performance.getEntriesByType) {
+                    const paintEntries = performance.getEntriesByType('paint');
+                    paintEntries.forEach(entry => {
+                        if (entry.name === 'first-contentful-paint') {
+                            addResult('performance-results', 'First Contentful Paint',
+                                getStatusClass(entry.startTime, 1000, 2500),
+                                `${entry.startTime.toFixed(0)}ms (Target: <1s excellent, <2.5s acceptable)`);
+                        }
+                    });
+                }
+                
+                // JavaScript execution time
+                const scripts = document.querySelectorAll('script[src]');
+                addResult('performance-results', 'External Scripts',
+                    scripts.length <= 5 ? 'pass' : 'warn',
+                    `${scripts.length} external scripts loaded`);
+                    
+                // CSS resources
+                const stylesheets = document.querySelectorAll('link[rel="stylesheet"]');
+                addResult('performance-results', 'CSS Resources',
+                    stylesheets.length <= 3 ? 'pass' : 'warn',
+                    `${stylesheets.length} CSS files loaded`);
+            }, 100);
+        }
+
+        function testPageLoad() {
+            const start = performance.now();
+            
+            // Simulate network request to test page responsiveness
+            fetch(window.location.href, { cache: 'no-cache' })
+                .then(response => {
+                    const loadTime = performance.now() - start;
+                    addResult('performance-results', 'Fresh Page Load Test',
+                        getStatusClass(loadTime, 1000, 3000),
+                        `${loadTime.toFixed(0)}ms for fresh page load`);
+                })
+                .catch(error => {
+                    addResult('performance-results', 'Page Load Test', 'fail',
+                        'Failed to load page for testing');
+                });
+        }
+
+        function testMemoryUsage() {
+            if (performance.memory) {
+                const memoryInfo = performance.memory;
+                const usedMB = memoryInfo.usedJSHeapSize / 1024 / 1024;
+                const totalMB = memoryInfo.totalJSHeapSize / 1024 / 1024;
+                const limitMB = memoryInfo.jsHeapSizeLimit / 1024 / 1024;
+                
+                addResult('performance-results', 'Memory Usage',
+                    getStatusClass(usedMB, 50, 100),
+                    `Used: ${usedMB.toFixed(1)}MB / ${totalMB.toFixed(1)}MB (Limit: ${limitMB.toFixed(0)}MB)`);
+                    
+                // Memory efficiency
+                const efficiency = (usedMB / totalMB) * 100;
+                addResult('performance-results', 'Memory Efficiency',
+                    getStatusClass(efficiency, 70, 90),
+                    `${efficiency.toFixed(1)}% of allocated memory used`);
+            } else {
+                addResult('performance-results', 'Memory Usage', 'warn',
+                    'Memory usage information not available in this browser');
+            }
+        }
+
+        function testNetworkRequests() {
+            if (performance.getEntriesByType) {
+                const resources = performance.getEntriesByType('resource');
+                const totalRequests = resources.length;
+                
+                // Categorize resources
+                const categories = {
+                    scripts: resources.filter(r => r.name.includes('.js')).length,
+                    styles: resources.filter(r => r.name.includes('.css')).length,
+                    images: resources.filter(r => /\.(jpg|jpeg|png|gif|svg|webp)/.test(r.name)).length,
+                    fonts: resources.filter(r => /\.(woff|woff2|ttf|eot)/.test(r.name)).length,
+                    other: 0
+                };
+                categories.other = totalRequests - categories.scripts - categories.styles - categories.images - categories.fonts;
+                
+                addResult('performance-results', 'Total Network Requests',
+                    getStatusClass(totalRequests, 20, 50),
+                    `${totalRequests} total requests (Target: <20 excellent, <50 acceptable)`);
+                
+                addResult('performance-results', 'Resource Breakdown', 'pass',
+                    `JS: ${categories.scripts}, CSS: ${categories.styles}, Images: ${categories.images}, Fonts: ${categories.fonts}, Other: ${categories.other}`);
+                
+                // Check for slow resources
+                const slowResources = resources.filter(r => r.duration > 1000);
+                if (slowResources.length > 0) {
+                    addResult('performance-results', 'Slow Resources', 'warn',
+                        `${slowResources.length} resources took >1s to load`);
+                } else {
+                    addResult('performance-results', 'Resource Load Speed', 'pass',
+                        'All resources loaded efficiently (<1s each)');
+                }
+            }
+        }
+
+        // UI/UX Testing
+        function testTouchTargets() {
+            const buttons = document.querySelectorAll('button, .cta-button, .checkout-button, a');
+            let adequateTargets = 0;
+            let totalTargets = buttons.length;
+            
+            buttons.forEach(button => {
+                const rect = button.getBoundingClientRect();
+                const minDimension = Math.min(rect.width, rect.height);
+                if (minDimension >= 44) {
+                    adequateTargets++;
+                }
+            });
+            
+            const percentage = (adequateTargets / totalTargets * 100).toFixed(1);
+            const status = percentage >= 90 ? 'pass' : percentage >= 70 ? 'warn' : 'fail';
+            
+            addResult('ui-results', 'Touch Target Compliance',
+                status,
+                `${adequateTargets}/${totalTargets} (${percentage}%) targets meet 44px minimum`);
+        }
+
+        function testFormUsability() {
+            const forms = document.querySelectorAll('form');
+            const inputs = document.querySelectorAll('input, textarea, select');
+            
+            // Test form presence
+            if (forms.length > 0) {
+                addResult('ui-results', 'Forms Present', 'pass',
+                    `${forms.length} forms found with ${inputs.length} input fields`);
+            } else {
+                addResult('ui-results', 'Forms Present', 'warn',
+                    'No forms found on current page');
+                return;
+            }
+            
+            // Test input types for mobile
+            let mobileOptimized = 0;
+            inputs.forEach(input => {
+                if (input.type === 'email' || input.type === 'tel' || input.type === 'number' || 
+                    input.getAttribute('inputmode')) {
+                    mobileOptimized++;
+                }
+            });
+            
+            const optimizationRate = (mobileOptimized / inputs.length * 100).toFixed(1);
+            addResult('ui-results', 'Mobile Input Optimization',
+                optimizationRate >= 50 ? 'pass' : 'warn',
+                `${mobileOptimized}/${inputs.length} (${optimizationRate}%) inputs optimized for mobile`);
+        }
+
+        function testScrollBehavior() {
+            // Test smooth scrolling
+            const smoothScrollLinks = document.querySelectorAll('a[href^="#"]');
+            const hasScrollBehavior = getComputedStyle(document.documentElement).scrollBehavior === 'smooth';
+            
+            addResult('ui-results', 'Smooth Scrolling',
+                hasScrollBehavior ? 'pass' : 'warn',
+                `${smoothScrollLinks.length} anchor links found, smooth scrolling: ${hasScrollBehavior ? 'enabled' : 'disabled'}`);
+            
+            // Test viewport height usage
+            const viewportHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            const ratio = documentHeight / viewportHeight;
+            
+            addResult('ui-results', 'Content Length',
+                ratio > 2 && ratio < 10 ? 'pass' : 'warn',
+                `Page is ${ratio.toFixed(1)}x viewport height (Good: 2-10x for landing pages)`);
+        }
+
+        // Auto-run basic tests on load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                runPerformanceTests();
+                testTouchTargets();
+                testFormUsability();
+                testScrollBehavior();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

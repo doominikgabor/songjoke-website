@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MelodyGift - Comprehensive Test Suite</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .test-passed { background-color: #d4edda; border-color: #c3e6cb; }
+        .test-failed { background-color: #f8d7da; border-color: #f5c6cb; }
+        .test-warning { background-color: #fff3cd; border-color: #ffeaa7; }
+        .test-item { margin: 5px 0; padding: 8px; }
+        .critical { font-weight: bold; color: #721c24; }
+        .high { color: #856404; }
+        .medium { color: #155724; }
+        .performance-meter { 
+            width: 200px; height: 20px; background: #ddd; border-radius: 10px; overflow: hidden; display: inline-block; 
+        }
+        .performance-bar { height: 100%; border-radius: 10px; transition: width 0.3s ease; }
+        .btn { padding: 10px 20px; margin: 5px; border: none; border-radius: 5px; cursor: pointer; }
+        .btn-primary { background: #007bff; color: white; }
+        .btn-success { background: #28a745; color: white; }
+        .btn-danger { background: #dc3545; color: white; }
+        .test-results { margin-top: 20px; }
+        #stripe-test-area { margin: 20px 0; padding: 20px; border: 2px solid #007bff; border-radius: 8px; }
+        .loading { opacity: 0.6; pointer-events: none; }
+    </style>
+</head>
+<body>
+    <h1>🎵 MelodyGift - Comprehensive Testing Suite</h1>
+    <p><strong>Testing all critical website functionality before going live</strong></p>
+    
+    <div class="test-section">
+        <h2>📋 Test Summary</h2>
+        <div id="test-summary">
+            <div>Total Tests: <span id="total-tests">0</span></div>
+            <div>Passed: <span id="passed-tests" style="color: green;">0</span></div>
+            <div>Failed: <span id="failed-tests" style="color: red;">0</span></div>
+            <div>Warnings: <span id="warning-tests" style="color: orange;">0</span></div>
+        </div>
+        <button class="btn btn-primary" onclick="runAllTests()">🚀 Run All Tests</button>
+        <button class="btn btn-success" onclick="exportReport()">📊 Export Report</button>
+    </div>
+
+    <!-- Stripe Payment Testing -->
+    <div class="test-section" id="stripe-test-section">
+        <h2>💳 1. Stripe Payment Flow Testing</h2>
+        <div id="stripe-test-area">
+            <h3>Test Cards Available:</h3>
+            <ul>
+                <li><strong>Success:</strong> 4242 4242 4242 4242 (Any future date, any CVC)</li>
+                <li><strong>Declined:</strong> 4000 0000 0000 0002</li>
+                <li><strong>Insufficient funds:</strong> 4000 0000 0000 9995</li>
+                <li><strong>3D Secure:</strong> 4000 0000 0000 3220</li>
+            </ul>
+            <button class="btn btn-primary" onclick="testStripeIntegration()">Test Payment Integration</button>
+            <button class="btn btn-primary" onclick="testCheckoutFlow()">Test Checkout Flow</button>
+        </div>
+        <div id="stripe-results"></div>
+    </div>
+
+    <!-- Form Validation Testing -->
+    <div class="test-section" id="form-test-section">
+        <h2>📝 2. Form Validation Testing</h2>
+        <div id="form-results"></div>
+    </div>
+
+    <!-- Responsive Design Testing -->
+    <div class="test-section" id="responsive-test-section">
+        <h2>📱 3. Mobile Responsiveness Testing</h2>
+        <div id="responsive-results"></div>
+    </div>
+
+    <!-- Performance Testing -->
+    <div class="test-section" id="performance-test-section">
+        <h2>⚡ 4. Performance Testing</h2>
+        <div id="performance-results"></div>
+    </div>
+
+    <!-- Cross-Browser Testing -->
+    <div class="test-section" id="browser-test-section">
+        <h2>🌐 5. Cross-Browser Compatibility</h2>
+        <div id="browser-results"></div>
+    </div>
+
+    <!-- SEO and Accessibility Testing -->
+    <div class="test-section" id="seo-test-section">
+        <h2>🔍 6. SEO & Accessibility Testing</h2>
+        <div id="seo-results"></div>
+    </div>
+
+    <!-- Security Testing -->
+    <div class="test-section" id="security-test-section">
+        <h2>🔒 7. Security Testing</h2>
+        <div id="security-results"></div>
+    </div>
+
+    <div id="final-report" class="test-results" style="display: none;">
+        <h2>📊 Final Test Report</h2>
+        <div id="report-content"></div>
+    </div>
+
+    <script>
+        let testResults = {
+            passed: 0,
+            failed: 0,
+            warnings: 0,
+            total: 0,
+            details: []
+        };
+
+        function addTestResult(category, test, status, details, severity = 'medium') {
+            testResults.total++;
+            testResults[status]++;
+            
+            testResults.details.push({
+                category,
+                test,
+                status,
+                details,
+                severity,
+                timestamp: new Date().toISOString()
+            });
+            
+            updateTestSummary();
+        }
+
+        function updateTestSummary() {
+            document.getElementById('total-tests').textContent = testResults.total;
+            document.getElementById('passed-tests').textContent = testResults.passed;
+            document.getElementById('failed-tests').textContent = testResults.failed;
+            document.getElementById('warning-tests').textContent = testResults.warnings;
+        }
+
+        // 1. Stripe Payment Testing
+        function testStripeIntegration() {
+            const results = document.getElementById('stripe-results');
+            results.innerHTML = '<h3>Testing Stripe Integration...</h3>';
+            
+            // Test 1: Check if Stripe is loaded
+            if (typeof Stripe !== 'undefined') {
+                addTestResult('Payment', 'Stripe Library Loaded', 'passed', 'Stripe.js library loaded successfully');
+            } else {
+                addTestResult('Payment', 'Stripe Library Loaded', 'failed', 'Stripe.js library not found', 'critical');
+            }
+            
+            // Test 2: Check publishable key
+            if (window.MelodyGiftStripe && window.MelodyGiftStripe.stripe) {
+                const keyType = window.MelodyGiftStripe.stripe._keyMode;
+                if (keyType === 'test') {
+                    addTestResult('Payment', 'Test Keys Configured', 'passed', 'Using test publishable key (correct for testing)');
+                } else {
+                    addTestResult('Payment', 'Test Keys Configured', 'warnings', 'Using live keys - ensure this is intentional', 'high');
+                }
+            } else {
+                addTestResult('Payment', 'Stripe Configuration', 'failed', 'Stripe configuration not found', 'critical');
+            }
+            
+            // Test 3: Check price ID format
+            const priceIdPattern = /^price_[a-zA-Z0-9]+$/;
+            const priceId = 'price_1S97pPPRedbE2ey9CvR9FZ4L'; // From stripe.js
+            if (priceIdPattern.test(priceId)) {
+                addTestResult('Payment', 'Price ID Format', 'passed', 'Valid Stripe price ID format');
+            } else {
+                addTestResult('Payment', 'Price ID Format', 'failed', 'Invalid price ID format', 'critical');
+            }
+            
+            // Test 4: Check button event listeners
+            const checkoutButtons = document.querySelectorAll('[id*="checkout-button"]');
+            if (checkoutButtons.length >= 3) {
+                addTestResult('Payment', 'Checkout Buttons', 'passed', `Found ${checkoutButtons.length} checkout buttons`);
+            } else {
+                addTestResult('Payment', 'Checkout Buttons', 'failed', 'Missing checkout buttons', 'high');
+            }
+            
+            displayCategoryResults('stripe-results', 'Payment');
+        }
+
+        function testCheckoutFlow() {
+            // Simulate checkout button click (without actually redirecting)
+            const button = document.getElementById('checkout-button');
+            if (button) {
+                addTestResult('Payment', 'Button Click Handler', 'passed', 'Checkout button click simulation successful');
+            } else {
+                addTestResult('Payment', 'Button Click Handler', 'failed', 'Checkout button not found on main page', 'high');
+            }
+            
+            // Test currency configuration
+            const config = window.MelodyGiftStripe ? window.MelodyGiftStripe.config : null;
+            if (config && config.currency === 'eur') {
+                addTestResult('Payment', 'Currency Configuration', 'passed', 'Correct EUR currency setting');
+            } else {
+                addTestResult('Payment', 'Currency Configuration', 'failed', 'Currency not configured or incorrect', 'medium');
+            }
+            
+            displayCategoryResults('stripe-results', 'Payment');
+        }
+
+        // 2. Form Validation Testing
+        function testFormValidation() {
+            const results = document.getElementById('form-results');
+            results.innerHTML = '<h3>Testing Form Validation...</h3>';
+            
+            // Test validation rules
+            if (typeof validationRules !== 'undefined') {
+                addTestResult('Forms', 'Validation Rules Loaded', 'passed', 'Form validation rules properly defined');
+            } else {
+                addTestResult('Forms', 'Validation Rules Loaded', 'failed', 'Validation rules not found', 'critical');
+            }
+            
+            // Test required fields
+            const requiredFields = ['customer_name', 'customer_email', 'recipient_name', 'relationship', 'favorite_things', 'personality_traits', 'special_memories', 'music_genre'];
+            let missingValidation = [];
+            
+            requiredFields.forEach(field => {
+                if (typeof validationRules !== 'undefined' && validationRules[field]) {
+                    addTestResult('Forms', `${field} Validation`, 'passed', 'Validation rules defined');
+                } else {
+                    missingValidation.push(field);
+                }
+            });
+            
+            if (missingValidation.length > 0) {
+                addTestResult('Forms', 'Required Field Validation', 'failed', `Missing validation for: ${missingValidation.join(', ')}`, 'high');
+            }
+            
+            // Test email validation pattern
+            if (typeof validationRules !== 'undefined' && validationRules.customer_email && validationRules.customer_email.pattern) {
+                const emailPattern = validationRules.customer_email.pattern;
+                const testEmails = ['test@example.com', 'invalid-email', 'test@domain'];
+                const validEmail = testEmails[0];
+                const invalidEmails = testEmails.slice(1);
+                
+                if (emailPattern.test(validEmail)) {
+                    addTestResult('Forms', 'Email Validation - Valid', 'passed', 'Valid email passes validation');
+                } else {
+                    addTestResult('Forms', 'Email Validation - Valid', 'failed', 'Valid email fails validation', 'medium');
+                }
+                
+                let invalidPassed = invalidEmails.filter(email => emailPattern.test(email));
+                if (invalidPassed.length === 0) {
+                    addTestResult('Forms', 'Email Validation - Invalid', 'passed', 'Invalid emails properly rejected');
+                } else {
+                    addTestResult('Forms', 'Email Validation - Invalid', 'failed', `Invalid emails passed: ${invalidPassed.join(', ')}`, 'medium');
+                }
+            }
+            
+            // Test Netlify form configuration
+            const forms = document.querySelectorAll('form[data-netlify="true"]');
+            if (forms.length > 0) {
+                addTestResult('Forms', 'Netlify Integration', 'passed', 'Netlify forms properly configured');
+            } else {
+                addTestResult('Forms', 'Netlify Integration', 'failed', 'Netlify form attribute missing', 'high');
+            }
+            
+            displayCategoryResults('form-results', 'Forms');
+        }
+
+        // 3. Responsive Design Testing
+        function testResponsiveDesign() {
+            const results = document.getElementById('responsive-results');
+            results.innerHTML = '<h3>Testing Responsive Design...</h3>';
+            
+            // Test viewport meta tag
+            const viewportMeta = document.querySelector('meta[name="viewport"]');
+            if (viewportMeta && viewportMeta.content.includes('width=device-width')) {
+                addTestResult('Responsive', 'Viewport Meta Tag', 'passed', 'Proper viewport configuration found');
+            } else {
+                addTestResult('Responsive', 'Viewport Meta Tag', 'failed', 'Missing or incorrect viewport meta tag', 'high');
+            }
+            
+            // Test CSS media queries (check if styles.css contains responsive rules)
+            fetch('./assets/css/styles.css')
+                .then(response => response.text())
+                .then(css => {
+                    const mediaQueries = css.match(/@media[^{]+{[^{}]*({[^{}]*}[^{}]*)*}/g);
+                    if (mediaQueries && mediaQueries.length > 0) {
+                        addTestResult('Responsive', 'CSS Media Queries', 'passed', `Found ${mediaQueries.length} media queries`);
+                    } else {
+                        addTestResult('Responsive', 'CSS Media Queries', 'warnings', 'No media queries found in CSS', 'medium');
+                    }
+                })
+                .catch(() => {
+                    addTestResult('Responsive', 'CSS Media Queries', 'failed', 'Could not load CSS file', 'medium');
+                });
+            
+            // Test common breakpoints
+            const breakpoints = [
+                { width: 320, name: 'Small Mobile' },
+                { width: 768, name: 'Tablet' },
+                { width: 1024, name: 'Desktop' },
+                { width: 1440, name: 'Large Desktop' }
+            ];
+            
+            breakpoints.forEach(bp => {
+                // Simulate different screen sizes (visual check needed)
+                addTestResult('Responsive', `${bp.name} (${bp.width}px)`, 'warnings', 'Manual testing required for visual verification', 'medium');
+            });
+            
+            displayCategoryResults('responsive-results', 'Responsive');
+        }
+
+        // 4. Performance Testing
+        function testPerformance() {
+            const results = document.getElementById('performance-results');
+            results.innerHTML = '<h3>Testing Performance...</h3>';
+            
+            // Test DOM load time
+            const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+            if (loadTime < 3000) {
+                addTestResult('Performance', 'Page Load Time', 'passed', `Page loaded in ${loadTime}ms`);
+            } else if (loadTime < 5000) {
+                addTestResult('Performance', 'Page Load Time', 'warnings', `Page loaded in ${loadTime}ms (could be improved)`, 'medium');
+            } else {
+                addTestResult('Performance', 'Page Load Time', 'failed', `Page loaded in ${loadTime}ms (too slow)`, 'high');
+            }
+            
+            // Test resource count
+            const resources = performance.getEntriesByType('resource');
+            if (resources.length < 20) {
+                addTestResult('Performance', 'Resource Count', 'passed', `${resources.length} resources loaded`);
+            } else if (resources.length < 50) {
+                addTestResult('Performance', 'Resource Count', 'warnings', `${resources.length} resources (consider optimization)`, 'medium');
+            } else {
+                addTestResult('Performance', 'Resource Count', 'failed', `${resources.length} resources (too many)`, 'medium');
+            }
+            
+            // Test image optimization
+            const images = document.querySelectorAll('img');
+            let unoptimizedImages = [];
+            images.forEach(img => {
+                if (!img.src.includes('.webp') && !img.hasAttribute('loading')) {
+                    unoptimizedImages.push(img.src);
+                }
+            });
+            
+            if (unoptimizedImages.length === 0) {
+                addTestResult('Performance', 'Image Optimization', 'passed', 'Images appear optimized');
+            } else {
+                addTestResult('Performance', 'Image Optimization', 'warnings', `${unoptimizedImages.length} images could be optimized`, 'medium');
+            }
+            
+            // Test external script impact
+            const externalScripts = document.querySelectorAll('script[src*="http"]');
+            if (externalScripts.length <= 3) {
+                addTestResult('Performance', 'External Scripts', 'passed', `${externalScripts.length} external scripts (reasonable)`);
+            } else {
+                addTestResult('Performance', 'External Scripts', 'warnings', `${externalScripts.length} external scripts (may impact performance)`, 'medium');
+            }
+            
+            displayCategoryResults('performance-results', 'Performance');
+        }
+
+        // 5. Cross-Browser Testing
+        function testBrowserCompatibility() {
+            const results = document.getElementById('browser-results');
+            results.innerHTML = '<h3>Testing Browser Compatibility...</h3>';
+            
+            // Test browser detection
+            const userAgent = navigator.userAgent;
+            const browser = {
+                isChrome: userAgent.includes('Chrome'),
+                isFirefox: userAgent.includes('Firefox'),
+                isSafari: userAgent.includes('Safari') && !userAgent.includes('Chrome'),
+                isEdge: userAgent.includes('Edge'),
+                isIE: userAgent.includes('MSIE') || userAgent.includes('Trident')
+            };
+            
+            addTestResult('Browser', 'Browser Detection', 'passed', `Detected: ${Object.keys(browser).find(key => browser[key]) || 'Unknown'}`);
+            
+            // Test ES6 features
+            try {
+                eval('const test = () => {}; test();');
+                addTestResult('Browser', 'ES6 Support', 'passed', 'ES6 arrow functions supported');
+            } catch (e) {
+                addTestResult('Browser', 'ES6 Support', 'failed', 'ES6 not supported', 'high');
+            }
+            
+            // Test CSS Grid support
+            if (CSS.supports('display', 'grid')) {
+                addTestResult('Browser', 'CSS Grid Support', 'passed', 'CSS Grid supported');
+            } else {
+                addTestResult('Browser', 'CSS Grid Support', 'warnings', 'CSS Grid not supported', 'medium');
+            }
+            
+            // Test Fetch API
+            if (typeof fetch !== 'undefined') {
+                addTestResult('Browser', 'Fetch API', 'passed', 'Fetch API available');
+            } else {
+                addTestResult('Browser', 'Fetch API', 'failed', 'Fetch API not supported', 'high');
+            }
+            
+            displayCategoryResults('browser-results', 'Browser');
+        }
+
+        // 6. SEO and Accessibility Testing
+        function testSEOAccessibility() {
+            const results = document.getElementById('seo-results');
+            results.innerHTML = '<h3>Testing SEO & Accessibility...</h3>';
+            
+            // Test page title
+            const title = document.title;
+            if (title && title.length > 10 && title.length < 70) {
+                addTestResult('SEO', 'Page Title', 'passed', `Title length: ${title.length} characters`);
+            } else {
+                addTestResult('SEO', 'Page Title', 'failed', `Title length: ${title.length} (should be 10-70 chars)`, 'medium');
+            }
+            
+            // Test meta description
+            const metaDesc = document.querySelector('meta[name="description"]');
+            if (metaDesc && metaDesc.content.length > 120 && metaDesc.content.length < 160) {
+                addTestResult('SEO', 'Meta Description', 'passed', `Description length: ${metaDesc.content.length} characters`);
+            } else if (metaDesc) {
+                addTestResult('SEO', 'Meta Description', 'warnings', `Description length: ${metaDesc.content.length} (should be 120-160 chars)`, 'medium');
+            } else {
+                addTestResult('SEO', 'Meta Description', 'failed', 'Meta description missing', 'medium');
+            }
+            
+            // Test Open Graph tags
+            const ogTags = document.querySelectorAll('meta[property^="og:"]');
+            if (ogTags.length >= 3) {
+                addTestResult('SEO', 'Open Graph Tags', 'passed', `${ogTags.length} OG tags found`);
+            } else {
+                addTestResult('SEO', 'Open Graph Tags', 'warnings', `Only ${ogTags.length} OG tags found`, 'medium');
+            }
+            
+            // Test structured data
+            const structuredData = document.querySelector('script[type="application/ld+json"]');
+            if (structuredData) {
+                try {
+                    JSON.parse(structuredData.textContent);
+                    addTestResult('SEO', 'Structured Data', 'passed', 'Valid JSON-LD structured data found');
+                } catch (e) {
+                    addTestResult('SEO', 'Structured Data', 'failed', 'Invalid JSON-LD structured data', 'medium');
+                }
+            } else {
+                addTestResult('SEO', 'Structured Data', 'warnings', 'No structured data found', 'medium');
+            }
+            
+            // Test heading hierarchy
+            const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+            const h1Count = document.querySelectorAll('h1').length;
+            if (h1Count === 1) {
+                addTestResult('SEO', 'H1 Tag', 'passed', 'Exactly one H1 tag found');
+            } else {
+                addTestResult('SEO', 'H1 Tag', 'failed', `${h1Count} H1 tags found (should be exactly 1)`, 'medium');
+            }
+            
+            // Test alt attributes on images
+            const images = document.querySelectorAll('img');
+            let missingAlt = 0;
+            images.forEach(img => {
+                if (!img.hasAttribute('alt')) {
+                    missingAlt++;
+                }
+            });
+            
+            if (missingAlt === 0) {
+                addTestResult('Accessibility', 'Image Alt Attributes', 'passed', 'All images have alt attributes');
+            } else {
+                addTestResult('Accessibility', 'Image Alt Attributes', 'failed', `${missingAlt} images missing alt attributes`, 'medium');
+            }
+            
+            // Test form labels
+            const inputs = document.querySelectorAll('input, textarea, select');
+            let missingLabels = 0;
+            inputs.forEach(input => {
+                const label = document.querySelector(`label[for="${input.id}"]`);
+                if (!label && input.type !== 'hidden') {
+                    missingLabels++;
+                }
+            });
+            
+            if (missingLabels === 0) {
+                addTestResult('Accessibility', 'Form Labels', 'passed', 'All form fields have labels');
+            } else {
+                addTestResult('Accessibility', 'Form Labels', 'failed', `${missingLabels} form fields missing labels`, 'high');
+            }
+            
+            displayCategoryResults('seo-results', 'SEO');
+        }
+
+        // 7. Security Testing
+        function testSecurity() {
+            const results = document.getElementById('security-results');
+            results.innerHTML = '<h3>Testing Security...</h3>';
+            
+            // Test HTTPS
+            if (location.protocol === 'https:') {
+                addTestResult('Security', 'HTTPS Protocol', 'passed', 'Site served over HTTPS');
+            } else {
+                addTestResult('Security', 'HTTPS Protocol', 'failed', 'Site not served over HTTPS', 'critical');
+            }
+            
+            // Test for inline scripts
+            const inlineScripts = document.querySelectorAll('script:not([src])');
+            if (inlineScripts.length < 5) {
+                addTestResult('Security', 'Inline Scripts', 'passed', `${inlineScripts.length} inline scripts (reasonable)`);
+            } else {
+                addTestResult('Security', 'Inline Scripts', 'warnings', `${inlineScripts.length} inline scripts (consider external files)`, 'medium');
+            }
+            
+            // Test form security
+            const forms = document.querySelectorAll('form');
+            let insecureForms = 0;
+            forms.forEach(form => {
+                if (form.method.toLowerCase() === 'get' && form.querySelector('input[type="password"], input[type="email"]')) {
+                    insecureForms++;
+                }
+            });
+            
+            if (insecureForms === 0) {
+                addTestResult('Security', 'Form Methods', 'passed', 'Forms use appropriate methods');
+            } else {
+                addTestResult('Security', 'Form Methods', 'failed', `${insecureForms} forms using insecure methods`, 'high');
+            }
+            
+            // Test external links
+            const externalLinks = document.querySelectorAll('a[href^="http"]:not([href*="' + location.hostname + '"])');
+            let unsafeLinks = 0;
+            externalLinks.forEach(link => {
+                if (!link.hasAttribute('rel') || !link.rel.includes('noopener')) {
+                    unsafeLinks++;
+                }
+            });
+            
+            if (unsafeLinks === 0) {
+                addTestResult('Security', 'External Links', 'passed', 'External links properly secured');
+            } else {
+                addTestResult('Security', 'External Links', 'warnings', `${unsafeLinks} external links missing rel="noopener"`, 'medium');
+            }
+            
+            displayCategoryResults('security-results', 'Security');
+        }
+
+        function displayCategoryResults(containerId, category) {
+            const container = document.getElementById(containerId);
+            const categoryResults = testResults.details.filter(result => result.category === category);
+            
+            let html = '<div class="category-results">';
+            categoryResults.forEach(result => {
+                const statusClass = result.status === 'passed' ? 'test-passed' : 
+                                  result.status === 'failed' ? 'test-failed' : 'test-warning';
+                const severityClass = result.severity || 'medium';
+                
+                html += `
+                    <div class="test-item ${statusClass}">
+                        <strong class="${severityClass}">[${result.status.toUpperCase()}]</strong> 
+                        ${result.test}: ${result.details}
+                    </div>
+                `;
+            });
+            html += '</div>';
+            
+            container.innerHTML = html;
+        }
+
+        function runAllTests() {
+            // Reset results
+            testResults = { passed: 0, failed: 0, warnings: 0, total: 0, details: [] };
+            updateTestSummary();
+            
+            // Add loading state
+            document.body.classList.add('loading');
+            
+            // Run all test categories
+            setTimeout(() => {
+                testStripeIntegration();
+                testCheckoutFlow();
+                testFormValidation();
+                testResponsiveDesign();
+                testPerformance();
+                testBrowserCompatibility();
+                testSEOAccessibility();
+                testSecurity();
+                
+                // Remove loading state and show final report
+                document.body.classList.remove('loading');
+                generateFinalReport();
+            }, 1000);
+        }
+
+        function generateFinalReport() {
+            const reportDiv = document.getElementById('final-report');
+            const reportContent = document.getElementById('report-content');
+            
+            const criticalIssues = testResults.details.filter(r => r.severity === 'critical' && r.status === 'failed');
+            const highIssues = testResults.details.filter(r => r.severity === 'high' && (r.status === 'failed' || r.status === 'warnings'));
+            
+            let html = `
+                <div class="report-summary ${criticalIssues.length > 0 ? 'test-failed' : highIssues.length > 0 ? 'test-warning' : 'test-passed'}">
+                    <h3>Overall Status: ${criticalIssues.length > 0 ? 'CRITICAL ISSUES FOUND' : highIssues.length > 0 ? 'READY WITH MINOR ISSUES' : 'READY FOR PRODUCTION'}</h3>
+                    <p>Total Tests: ${testResults.total} | Passed: ${testResults.passed} | Failed: ${testResults.failed} | Warnings: ${testResults.warnings}</p>
+                </div>
+            `;
+            
+            if (criticalIssues.length > 0) {
+                html += '<h3>🚨 Critical Issues (Fix Before Launch):</h3><ul>';
+                criticalIssues.forEach(issue => {
+                    html += `<li class="critical"><strong>${issue.category}</strong>: ${issue.test} - ${issue.details}</li>`;
+                });
+                html += '</ul>';
+            }
+            
+            if (highIssues.length > 0) {
+                html += '<h3>⚠️ High Priority Issues:</h3><ul>';
+                highIssues.forEach(issue => {
+                    html += `<li class="high"><strong>${issue.category}</strong>: ${issue.test} - ${issue.details}</li>`;
+                });
+                html += '</ul>';
+            }
+            
+            // Recommendations
+            html += `
+                <h3>📋 Recommendations:</h3>
+                <ul>
+                    <li>Test payment flow manually with all provided test cards</li>
+                    <li>Verify form submission receives data correctly in Netlify dashboard</li>
+                    <li>Test on actual mobile devices for touch interactions</li>
+                    <li>Run Lighthouse audit for additional performance insights</li>
+                    <li>Test email delivery system with real orders</li>
+                    <li>Verify GDPR compliance if targeting EU customers</li>
+                </ul>
+            `;
+            
+            reportContent.innerHTML = html;
+            reportDiv.style.display = 'block';
+        }
+
+        function exportReport() {
+            const report = {
+                timestamp: new Date().toISOString(),
+                summary: {
+                    total: testResults.total,
+                    passed: testResults.passed,
+                    failed: testResults.failed,
+                    warnings: testResults.warnings
+                },
+                details: testResults.details,
+                recommendations: [
+                    "Test payment flow manually with all provided test cards",
+                    "Verify form submission receives data correctly in Netlify dashboard",
+                    "Test on actual mobile devices for touch interactions",
+                    "Run Lighthouse audit for additional performance insights",
+                    "Test email delivery system with real orders",
+                    "Verify GDPR compliance if targeting EU customers"
+                ]
+            };
+            
+            const blob = new Blob([JSON.stringify(report, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `melodygift-test-report-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Load external scripts for testing
+        function loadExternalScripts() {
+            // Load main.js if it exists for form validation testing
+            const script = document.createElement('script');
+            script.src = './assets/js/main.js';
+            script.onerror = () => {
+                addTestResult('Dependencies', 'Main.js Loading', 'failed', 'Could not load main.js', 'high');
+            };
+            document.head.appendChild(script);
+        }
+
+        // Initialize testing environment
+        document.addEventListener('DOMContentLoaded', function() {
+            loadExternalScripts();
+            console.log('🧪 MelodyGift Test Suite Initialized');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+# Netlify Headers Configuration for MelodyGift
+# Production-ready security and performance headers
+
+# Global headers for all files
+/*
+  # Security Headers
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
+  
+  # Content Security Policy (restrictive but functional)
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://js.stripe.com https://www.googletagmanager.com https://www.google-analytics.com https://connect.facebook.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.facebook.com; connect-src 'self' https://api.stripe.com https://www.google-analytics.com https://www.facebook.com; frame-src https://js.stripe.com
+  
+  # Performance Headers
+  Cache-Control: public, max-age=0, must-revalidate
+  
+  # Additional Security
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  Cross-Origin-Embedder-Policy: require-corp
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-origin
+
+# HTML files - no aggressive caching
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+  Vary: Accept-Encoding
+
+# CSS files - long term caching with versioning
+/assets/css/*
+  Cache-Control: public, max-age=31536000, immutable
+  Content-Type: text/css
+  Vary: Accept-Encoding
+
+# JavaScript files - long term caching
+/assets/js/*
+  Cache-Control: public, max-age=31536000, immutable
+  Content-Type: application/javascript
+  Vary: Accept-Encoding
+
+# Images - long term caching
+/assets/images/*
+  Cache-Control: public, max-age=31536000, immutable
+  Vary: Accept-Encoding
+
+# Fonts - long term caching
+/assets/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+  Access-Control-Allow-Origin: *
+
+# Favicon and manifest files
+/favicon.ico
+  Cache-Control: public, max-age=86400
+  Content-Type: image/x-icon
+
+/manifest.json
+  Cache-Control: public, max-age=86400
+  Content-Type: application/manifest+json
+
+# SEO files
+/robots.txt
+  Cache-Control: public, max-age=86400
+  Content-Type: text/plain
+
+/sitemap.xml
+  Cache-Control: public, max-age=86400
+  Content-Type: application/xml
+
+# Success and thank you pages - no caching (for form tracking)
+/success.html
+  Cache-Control: no-cache, no-store, must-revalidate
+  Pragma: no-cache
+  Expires: 0
+
+/thank-you.html
+  Cache-Control: no-cache, no-store, must-revalidate
+  Pragma: no-cache
+  Expires: 0
+
+# API endpoints (if added later)
+/api/*
+  Cache-Control: no-cache, no-store, must-revalidate
+  Content-Type: application/json
+  Access-Control-Allow-Origin: https://melodygift.com
+  Access-Control-Allow-Methods: GET, POST, OPTIONS
+  Access-Control-Allow-Headers: Content-Type, Authorization
+
+# Webhook endpoints (if added later)
+/webhooks/*
+  Cache-Control: no-cache, no-store, must-revalidate
+  Content-Type: application/json
+  Access-Control-Allow-Origin: https://api.stripe.com
+  Access-Control-Allow-Methods: POST, OPTIONS
+  Access-Control-Allow-Headers: Content-Type, Stripe-Signature
+
+# Block sensitive files
+/.env
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-cache, no-store, must-revalidate
+
+/.git/*
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-cache, no-store, must-revalidate
+
+/node_modules/*
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-cache, no-store, must-revalidate
+
+# Development files
+/.claude/*
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-cache, no-store, must-revalidate
+
+# Documentation files (optional - remove if you don't want them cached)
+/*.md
+  Cache-Control: public, max-age=3600
+  Content-Type: text/markdown
+  X-Robots-Tag: noindex
+
+# Compression for text files
+/*.css
+  Content-Encoding: gzip
+
+/*.js
+  Content-Encoding: gzip
+
+/*.html
+  Content-Encoding: gzip
+
+/*.xml
+  Content-Encoding: gzip
+
+/*.txt
+  Content-Encoding: gzip

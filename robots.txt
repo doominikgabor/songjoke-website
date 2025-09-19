@@ -1,0 +1,73 @@
+# Robots.txt for MelodyGift
+# Optimized for search engine crawling and indexing
+
+User-agent: *
+Allow: /
+
+# Allow all pages except sensitive/private areas
+Disallow: /success.html
+Disallow: /thank-you.html
+Disallow: /.claude/
+Disallow: /.git/
+Disallow: /node_modules/
+Disallow: /.env
+Disallow: /netlify/
+Disallow: /admin/
+Disallow: /api/
+Disallow: /webhooks/
+
+# Allow CSS and JS for better rendering in search results
+Allow: /assets/css/
+Allow: /assets/js/
+Allow: /assets/images/
+
+# Block common attack paths
+Disallow: /wp-admin/
+Disallow: /wp-content/
+Disallow: /administrator/
+Disallow: /config/
+Disallow: /.well-known/
+
+# Crawl delay (be respectful to server resources)
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://melodygift.netlify.app/sitemap.xml
+
+# Search engine specific instructions
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+# Block aggressive scrapers and bots
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+# Block AI training crawlers (optional - uncomment if desired)
+# User-agent: CCBot
+# Disallow: /
+
+# User-agent: ChatGPT-User
+# Disallow: /
+
+# User-agent: anthropic-ai
+# Disallow: /

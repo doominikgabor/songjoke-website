@@ -1,0 +1,109 @@
+[build]
+  # Build command (not needed for static site, but can be used for preprocessing)
+  command = "echo 'Building MelodyGift site...'"
+  
+  # Directory to publish (root directory since our files are in root)
+  publish = "."
+
+[build.environment]
+  # Node version for any build processes
+  NODE_VERSION = "18"
+
+# Form handling configuration
+[[forms]]
+  name = "song-order"
+
+# Redirect rules for clean URLs and SPA behavior
+[[redirects]]
+  # Handle form submissions
+  from = "/success"
+  to = "/success.html"
+  status = 200
+
+[[redirects]]
+  # Handle thank you page
+  from = "/thank-you"
+  to = "/thank-you.html"
+  status = 200
+
+[[redirects]]
+  # Redirect old paths to new ones
+  from = "/home"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  # Handle 404s by serving the main page (in case someone types a wrong URL)
+  from = "/*"
+  to = "/index.html"
+  status = 404
+
+# Headers for security and performance
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Enhanced security headers
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://js.stripe.com https://www.google-analytics.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://api.stripe.com https://www.google-analytics.com; frame-src https://js.stripe.com https://hooks.stripe.com"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    
+    # Cache control for static assets
+    Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    # HTML files should not be cached aggressively
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    # Static assets can be cached for a year
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Environment-specific settings
+[context.production]
+  [context.production.environment]
+    NODE_ENV = "production"
+
+[context.deploy-preview]
+  [context.deploy-preview.environment]
+    NODE_ENV = "staging"
+
+[context.branch-deploy]
+  [context.branch-deploy.environment]
+    NODE_ENV = "development"
+
+# Plugin configuration
+[[plugins]]
+  package = "@netlify/plugin-sitemap"
+  
+  [plugins.inputs]
+    buildDir = "."
+    exclude = [
+      "/**/success.html",
+      "/**/thank-you.html"
+    ]
+
+# Edge functions (if needed in the future)
+[edge_functions]
+  # Reserved for potential future use
+
+# Functions directory (if needed for serverless functions)
+[functions]
+  directory = "netlify/functions"
+
+# Settings for form handling
+[form]
+  settings = { spam_protection = true }
+
+# Development settings
+[dev]
+  command = "python -m http.server 8888"
+  port = 8888
+  publish = "."

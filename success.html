@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful - Tell Us About Them | SongJoke</title>
+    <meta name="description" content="Payment successful! Now tell us about the birthday person so we can create their hilarious personalized song.">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>🎵 SongJoke</h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- Success Hero -->
+    <section class="success-hero">
+        <div class="container">
+            <div class="success-content">
+                <div class="success-icon">🎉</div>
+                <h1>Payment Successful!</h1>
+                <p class="success-subtitle">Now let's create their <span class="highlight">hilarious masterpiece</span></p>
+                <div class="progress-bar">
+                    <div class="progress-step completed">
+                        <span class="step-number">1</span>
+                        <span class="step-label">Payment</span>
+                    </div>
+                    <div class="progress-step active">
+                        <span class="step-number">2</span>
+                        <span class="step-label">Tell Us About Them</span>
+                    </div>
+                    <div class="progress-step">
+                        <span class="step-number">3</span>
+                        <span class="step-label">Song Creation</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Form Section -->
+    <section class="form-section">
+        <div class="container">
+            <div class="form-intro">
+                <h2>Help Us Make Them <span class="highlight">Laugh Out Loud</span></h2>
+                <p>The more details you share, the funnier and more personal their song will be! Don't hold back - we love inside jokes, quirky habits, and embarrassing stories. 😄</p>
+            </div>
+
+            <form name="song-order" method="POST" data-netlify="true" id="songOrderForm" class="song-form">
+                <input type="hidden" name="form-name" value="song-order">
+                <input type="hidden" name="order_id" id="orderIdField">
+
+                <!-- Your Information -->
+                <div class="form-section-group">
+                    <h3>👤 Your Information</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="customer_name">Your Name *</label>
+                            <input type="text" id="customer_name" name="customer_name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="customer_email">Your Email Address *</label>
+                            <input type="email" id="customer_email" name="customer_email" required>
+                            <small>We'll send the song here tomorrow!</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- About Them -->
+                <div class="form-section-group">
+                    <h3>🎂 About The Birthday Person</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="recipient_name">Their Name *</label>
+                            <input type="text" id="recipient_name" name="recipient_name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="relationship">Your Relationship To Them *</label>
+                            <input type="text" id="relationship" name="relationship" required placeholder="e.g., girlfriend, best friend, brother, etc.">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Personal Details -->
+                <div class="form-section-group">
+                    <h3>😄 What Makes Them Special (And Funny!)</h3>
+                    
+                    <div class="form-group">
+                        <label for="favorite_things">What Are Their Favorite Things? *</label>
+                        <textarea id="favorite_things" name="favorite_things" required rows="4" placeholder="e.g., obsessed with coffee, loves terrible reality TV shows, collects vintage sneakers, plays guitar badly but enthusiastically..."></textarea>
+                        <small>Hobbies, interests, obsessions - the quirkier the better!</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="personality_traits">Describe Their Personality *</label>
+                        <textarea id="personality_traits" name="personality_traits" required rows="4" placeholder="e.g., always late but charming about it, tells dad jokes unironically, dances like nobody's watching (even when they are), super competitive about board games..."></textarea>
+                        <small>What makes them uniquely them? Include funny habits!</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="special_memories">Special Memories You Share *</label>
+                        <textarea id="special_memories" name="special_memories" required rows="4" placeholder="e.g., that time they tried to cook and set off the smoke alarm three times, our epic karaoke fails, when they got lost in their own neighborhood..."></textarea>
+                        <small>Inside jokes, funny adventures, memorable moments together</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="funny_moments">Funny/Embarrassing Stories (Optional but Encouraged!)</label>
+                        <textarea id="funny_moments" name="funny_moments" rows="4" placeholder="e.g., they once wore two different shoes to work, they're afraid of butterflies, they sing Disney songs in the shower..."></textarea>
+                        <small>The more embarrassing, the funnier the song! 😂</small>
+                    </div>
+                </div>
+
+                <!-- Song Preferences -->
+                <div class="form-section-group">
+                    <h3>🎵 Song Style Preferences</h3>
+                    
+                    <div class="form-group">
+                        <label for="music_genre">What Music Genre Would Be Funniest? *</label>
+                        <select id="music_genre" name="music_genre" required>
+                            <option value="">Choose a genre...</option>
+                            <option value="pop">Pop - Catchy and upbeat</option>
+                            <option value="rock">Rock - High energy anthem</option>
+                            <option value="electronic">Electronic - Modern beats</option>
+                            <option value="folk">Folk - Storytelling style</option>
+                            <option value="hip-hop">Hip-Hop - Clever rap verses</option>
+                            <option value="r&b">R&B - Smooth and soulful</option>
+                            <option value="country">Country - Down-home humor</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="special_requests">Any Special Requests?</label>
+                        <textarea id="special_requests" name="special_requests" rows="3" placeholder="e.g., please mention their pet hamster Mr. Whiskers, reference that viral TikTok they love, include their catchphrase..."></textarea>
+                        <small>Anything specific you want included in the song?</small>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="form-submit">
+                    <button type="submit" class="cta-button primary large" id="submitBtn">
+                        Create Their Hilarious Song! 🎵
+                        <span class="button-subtext">Your song will be ready tomorrow morning!</span>
+                    </button>
+                    
+                    <div class="form-footer">
+                        <p>🎁 <strong>What happens next?</strong></p>
+                        <p>Our songwriter will craft their personalized funny song tonight and email it to you by tomorrow morning. Get ready to give the most memorable gift ever!</p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Tips Section -->
+    <section class="tips-section">
+        <div class="container">
+            <h3>💡 Pro Tips for Maximum Laughs</h3>
+            <div class="tips-grid">
+                <div class="tip">
+                    <span class="tip-icon">😂</span>
+                    <h4>Be Specific!</h4>
+                    <p>Instead of "they love food," try "they put hot sauce on ice cream"</p>
+                </div>
+                <div class="tip">
+                    <span class="tip-icon">🎯</span>
+                    <h4>Inside Jokes</h4>
+                    <p>Reference things only you two would understand - that's what makes it special!</p>
+                </div>
+                <div class="tip">
+                    <span class="tip-icon">🤪</span>
+                    <h4>Embrace the Weird</h4>
+                    <p>Their quirks and odd habits make the best song material</p>
+                </div>
+                <div class="tip">
+                    <span class="tip-icon">💝</span>
+                    <h4>Mix Funny + Sweet</h4>
+                    <p>The best songs roast them lovingly while showing you care</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>🎵 SongJoke</h3>
+                    <p>Creating hilarious, personalized songs that make birthdays unforgettable.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Need Help?</h4>
+                    <p>Email: hello@songjoke.com</p>
+                    <p>We respond within 24 hours</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 SongJoke. Making birthdays funnier, one song at a time.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+        // Generate order ID on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const orderIdField = document.getElementById('orderIdField');
+            const orderId = 'MG-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+            orderIdField.value = orderId;
+        });
+    </script>
+</body>
+</html>
