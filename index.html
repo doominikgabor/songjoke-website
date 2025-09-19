@@ -13,6 +13,27 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://songjoke.netlify.app">
     
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX', {
+            page_title: 'SongJoke - Landing Page',
+            send_page_view: true
+        });
+        
+        // Track CTA clicks
+        function trackCTAClick(location) {
+            gtag('event', 'cta_click', {
+                event_category: 'engagement',
+                event_label: location,
+                value: 1
+            });
+        }
+    </script>
+    
     <!-- Schema Markup -->
     <script type="application/ld+json">
     {
@@ -71,7 +92,7 @@
                     </div>
                 </div>
                 
-                <button id="checkout-button" class="cta-button primary">
+                <button id="checkout-button" class="cta-button primary" onclick="trackCTAClick('hero-section')">
                     Create Their Funny Song Now - €10
                     <span class="button-subtext">Perfect for last-minute funny gifts!</span>
                 </button>
@@ -115,7 +136,7 @@
             </div>
             
             <div class="cta-section">
-                <button id="checkout-button-2" class="cta-button secondary">
+                <button id="checkout-button-2" class="cta-button secondary" onclick="trackCTAClick('how-it-works')">
                     Start Creating Their Funny Song - €10
                 </button>
                 <p class="urgency-text">⏰ Perfect for birthdays happening soon!</p>
@@ -243,7 +264,7 @@
                     </div>
                 </div>
                 
-                <button id="checkout-button-3" class="cta-button primary large">
+                <button id="checkout-button-3" class="cta-button primary large" onclick="trackCTAClick('final-cta')">
                     Create Their Hilarious Song Now - €10
                     <span class="button-subtext">The best funny birthday gift under €10!</span>
                 </button>

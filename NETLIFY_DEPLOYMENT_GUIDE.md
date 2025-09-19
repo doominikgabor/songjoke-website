@@ -1,6 +1,6 @@
-# MelodyGift Netlify Deployment Guide
+# SongJoke Netlify Deployment Guide
 
-This comprehensive guide will walk you through deploying the MelodyGift website to Netlify with optimal production configuration.
+This comprehensive guide will walk you through deploying the SongJoke website to Netlify with optimal production configuration.
 
 ## 🚀 Quick Deployment Steps
 
@@ -106,12 +106,67 @@ Already configured in `netlify.toml`:
 - X-Content-Type-Options: nosniff
 - Referrer-Policy: strict-origin-when-cross-origin
 
-### Form Handling
+### Form Handling & Email Notifications
 
 ✅ **Netlify Forms Configured**
 - Contact form: `song-order`
 - Spam protection enabled
 - Form submissions → Netlify dashboard
+
+#### Setting Up Email Notifications
+
+**Step 1: Configure Email Notifications in Netlify Dashboard**
+1. Go to your site dashboard on Netlify
+2. Navigate to **Settings** → **Forms**
+3. Click on **Form notifications** 
+4. Click **Add notification**
+5. Choose **Email notification**
+6. Configure the following:
+   ```
+   Event to listen for: New form submission
+   Form: song-order
+   Email to notify: your-business-email@gmail.com
+   Custom subject: 🎵 New SongJoke Order - #{order_id}
+   ```
+
+**Step 2: Email Template Setup**
+Use this template for notifications:
+```
+New SongJoke order received! 🎉
+
+Order Details:
+- Order ID: #{order_id}
+- Customer: #{customer_name} (#{customer_email})
+- Recipient: #{recipient_name}
+- Relationship: #{relationship}
+
+Song Customization:
+- Genre: #{music_genre}
+- Favorite Things: #{favorite_things}
+- Personality: #{personality_traits}
+- Special Memories: #{special_memories}
+- Funny Moments: #{funny_moments}
+- Special Requests: #{special_requests}
+
+Next Steps:
+1. Create personalized song within 24 hours
+2. Email song + lyrics to #{customer_email}
+3. Follow up for feedback/testimonial
+
+View full submission: #{form_data_url}
+```
+
+**Step 3: Test Email Notifications**
+1. Submit a test form on your live site
+2. Check that you receive the email notification
+3. Verify all form fields are populated correctly
+4. Test spam protection is working
+
+**Step 4: Business Email Setup**
+Recommended business email: `orders@songjoke.com`
+- Professional appearance for customers
+- Separate from personal email
+- Easy to manage with team members
 
 ## 📊 Monitoring & Analytics
 

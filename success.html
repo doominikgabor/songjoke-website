@@ -6,6 +6,42 @@
     <title>Payment Successful - Tell Us About Them | SongJoke</title>
     <meta name="description" content="Payment successful! Now tell us about the birthday person so we can create their hilarious personalized song.">
     <meta name="robots" content="noindex, nofollow">
+    
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX', {
+            page_title: 'SongJoke - Payment Success',
+            send_page_view: true
+        });
+        
+        // Track payment success
+        gtag('event', 'purchase', {
+            transaction_id: 'MG-' + Date.now(),
+            value: 10.00,
+            currency: 'EUR',
+            items: [{
+                item_id: 'funny-song',
+                item_name: 'Personalized Funny Birthday Song',
+                category: 'Digital Product',
+                quantity: 1,
+                price: 10.00
+            }]
+        });
+        
+        // Track form submission
+        function trackFormSubmission() {
+            gtag('event', 'form_submit', {
+                event_category: 'engagement',
+                event_label: 'song-order-form',
+                value: 1
+            });
+        }
+    </script>
+    
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
@@ -142,7 +178,7 @@
 
                 <!-- Submit Button -->
                 <div class="form-submit">
-                    <button type="submit" class="cta-button primary large" id="submitBtn">
+                    <button type="submit" class="cta-button primary large" id="submitBtn" onclick="trackFormSubmission()">
                         Create Their Hilarious Song! 🎵
                         <span class="button-subtext">Your song will be ready tomorrow morning!</span>
                     </button>
