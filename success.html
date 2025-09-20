@@ -20,7 +20,7 @@
         
         // Track payment success
         gtag('event', 'purchase', {
-            transaction_id: 'MG-' + Date.now(),
+            transaction_id: 'SJ-' + Date.now(),
             value: 10.00,
             currency: 'EUR',
             items: [{
@@ -248,7 +248,7 @@
         // Generate order ID on page load
         document.addEventListener('DOMContentLoaded', function() {
             const orderIdField = document.getElementById('orderIdField');
-            const orderId = 'MG-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+            const orderId = 'SJ-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9).toUpperCase();
             orderIdField.value = orderId;
         });
     </script>
