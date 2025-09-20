@@ -51,8 +51,8 @@
     Strict-Transport-Security = "max-age=31536000; includeSubDomains"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
     
-    # Cache control for static assets
-    Cache-Control = "public, max-age=31536000"
+    # Cache control for static assets - shorter for development  
+    Cache-Control = "public, max-age=300, must-revalidate"
 
 [[headers]]
   for = "/*.html"
@@ -63,8 +63,8 @@
 [[headers]]
   for = "/assets/*"
   [headers.values]
-    # Static assets can be cached for a year
-    Cache-Control = "public, max-age=31536000, immutable"
+    # Static assets - shorter cache for development
+    Cache-Control = "public, max-age=300, must-revalidate"
 
 # Environment-specific settings
 [context.production]
