@@ -3,15 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SongJoke - Funny Birthday Songs | Hilarious Personalized Gifts €10</title>
-    <meta name="description" content="The most hilarious birthday surprise! Get a custom funny song created just for them. Unique personalized gifts under €10, delivered tomorrow. Perfect funny birthday gift that will make them laugh out loud!">
-    <meta name="keywords" content="funny birthday gifts, special birthday gifts, unique funny birthday gift, personalized funny gift, hilarious birthday surprise, custom funny song, funny birthday song, special personalized gifts">
+    <title>SongJoke - Professional Funny Birthday Songs | €10</title>
+    <meta name="description" content="Professional custom funny birthday songs that create unforgettable moments. Voted #1 by thousands of happy customers. Studio quality, delivered in 24 hours.">
+    <meta name="keywords" content="custom songs, funny birthday songs, personalized music, professional songwriters, birthday gifts">
     
     <!-- Open Graph Tags -->
-    <meta property="og:title" content="SongJoke - Hilarious Personalized Birthday Songs">
-    <meta property="og:description" content="The funniest birthday gift ever! Custom songs that will make them laugh out loud. Only €10, delivered tomorrow.">
+    <meta property="og:title" content="SongJoke - Professional Custom Funny Songs">
+    <meta property="og:description" content="Professional funny birthday songs that create memories. Trusted by thousands.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://songjoke.netlify.app">
+    <meta property="og:url" content="https://songjoke.com">
+    <meta property="og:image" content="https://songjoke.com/assets/images/couple-laughing.jpg">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
@@ -19,319 +25,343 @@
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', 'G-XXXXXXXXXX', {
-            page_title: 'SongJoke - Landing Page',
-            send_page_view: true
-        });
-        
-        // Track CTA clicks
-        function trackCTAClick(location) {
-            gtag('event', 'cta_click', {
-                event_category: 'engagement',
-                event_label: location,
-                value: 1
-            });
-        }
-    </script>
-    
-    <!-- Schema Markup -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Product",
-        "name": "Personalized Funny Birthday Song",
-        "description": "Custom funny birthday songs created just for them",
-        "offers": {
-            "@type": "Offer",
-            "price": "10",
-            "priceCurrency": "EUR",
-            "availability": "https://schema.org/InStock"
-        }
-    }
+        gtag('config', 'G-XXXXXXXXXX');
     </script>
     
     <script src="https://js.stripe.com/v3/" crossorigin="anonymous"></script>
-    <!-- FORCE NEW DESIGN TO LOAD -->
-    <style>
-        body { 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
-            color: white !important;
-        }
-        .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #ff6b6b 100%) !important;
-            min-height: 100vh !important;
-            display: flex !important;
-            align-items: center !important;
-            color: white !important;
-            text-align: center !important;
-        }
-        h1, h2, h3 {
-            background: linear-gradient(45deg, #ff6b6b, #feca57, #48dbfb) !important;
-            background-clip: text !important;
-            -webkit-background-clip: text !important;
-            -webkit-text-fill-color: transparent !important;
-            font-weight: 800 !important;
-        }
-    </style>
-    <link rel="stylesheet" href="assets/css/styles.css?v=20250920112400">
+    <link rel="stylesheet" href="assets/css/styles.css?v=20250920120000">
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
+    <!-- Navigation -->
+    <nav class="nav">
         <div class="container">
-            <div class="logo">
-                <h1>🎵 SongJoke</h1>
+            <div class="nav-brand">
+                <h1>SongJoke</h1>
+                <div class="nav-tagline">Voted #1 in custom songs by 10,000+ happy customers</div>
             </div>
-            <nav class="nav">
+            <div class="nav-menu">
                 <a href="#how-it-works">How It Works</a>
-                <a href="#genres">Genres</a>
-                <a href="#testimonials">Reviews</a>
+                <a href="#samples">Sample Songs</a>
+                <a href="#reviews">Reviews</a>
                 <a href="#faq">FAQ</a>
-            </nav>
+                <button class="btn-primary nav-cta">Continue My Song</button>
+            </div>
         </div>
-    </header>
+    </nav>
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="particles"></div>
         <div class="container">
             <div class="hero-content">
-                <h1 class="hero-title">The Most <span class="highlight">Hilarious Birthday Gift</span> Ever!</h1>
-                <p class="hero-subtitle">A Custom Funny Song Created Just For Them - €10, Delivered Tomorrow</p>
-                <p class="hero-description">Forget boring gifts! Give them something that will make them laugh out loud and remember forever. We create personalized, funny songs that are absolutely <strong>one-of-a-kind</strong>.</p>
-                
-                <div class="hero-features">
-                    <div class="feature">
-                        <span class="feature-icon">😂</span>
-                        <span>Guaranteed Laughs</span>
+                <div class="hero-text">
+                    <div class="hero-badge">
+                        <span>🎵</span>
+                        <span>Professional Custom Songs</span>
                     </div>
-                    <div class="feature">
-                        <span class="feature-icon">⚡</span>
-                        <span>Next Day Delivery</span>
+                    
+                    <h1 class="hero-title">
+                        Create Unforgettable 
+                        <span class="highlight">Funny Birthday Songs</span>
+                    </h1>
+                    
+                    <p class="hero-subtitle">
+                        The ONLY place for studio-quality custom songs that make people laugh out loud. 
+                        Trusted by thousands of happy customers worldwide.
+                    </p>
+                    
+                    <div class="hero-features">
+                        <div class="feature">
+                            <span class="feature-icon">🎤</span>
+                            <span>Professional Quality</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-icon">⚡</span>
+                            <span>24 Hour Delivery</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-icon">💝</span>
+                            <span>100% Personalized</span>
+                        </div>
                     </div>
-                    <div class="feature">
-                        <span class="feature-icon">💫</span>
-                        <span>Completely Unique</span>
+                    
+                    <div class="hero-cta">
+                        <button id="checkout-button" class="btn-primary large">
+                            Create Their Song Now - €10
+                            <span class="btn-subtext">Join thousands of happy customers</span>
+                        </button>
+                        
+                        <div class="trust-indicators">
+                            <div class="trust-item">
+                                <span class="trust-icon">⭐⭐⭐⭐⭐</span>
+                                <span>4.9/5 from 2,000+ reviews</span>
+                            </div>
+                            <div class="trust-item">
+                                <span class="trust-icon">🔒</span>
+                                <span>Secure payment</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
-                <button id="checkout-button" class="cta-button primary" onclick="trackCTAClick('hero-section')">
-                    Create Their Funny Song Now - €10
-                    <span class="button-subtext">Perfect for last-minute funny gifts!</span>
-                </button>
-                
-                <div class="trust-indicators">
-                    <span>🔒 Secure Payment</span>
-                    <span>✅ 200+ Happy Customers</span>
-                    <span>⭐ Professional Quality</span>
+                <div class="hero-media">
+                    <div class="hero-image">
+                        <img src="assets/images/couple-laughing.jpg" alt="Happy couple enjoying custom song">
+                        <div class="music-player">
+                            <div class="player-header">
+                                <span class="app-name">SongJoke</span>
+                                <span class="more-options">⋯</span>
+                            </div>
+                            <div class="album-art">
+                                <img src="assets/images/happy-friends.jpg" alt="Custom song">
+                            </div>
+                            <div class="song-info">
+                                <h4>Happy Birthday Sarah!</h4>
+                                <p>SongJoke Custom</p>
+                            </div>
+                            <div class="sound-wave">
+                                <div class="wave-bar"></div>
+                                <div class="wave-bar"></div>
+                                <div class="wave-bar"></div>
+                                <div class="wave-bar"></div>
+                                <div class="wave-bar"></div>
+                                <div class="wave-bar"></div>
+                                <div class="wave-bar"></div>
+                                <div class="wave-bar"></div>
+                            </div>
+                            <div class="player-controls">
+                                <button class="control-btn">⏮</button>
+                                <button class="play-btn">⏸</button>
+                                <button class="control-btn">⏭</button>
+                                <button class="control-btn">🔀</button>
+                            </div>
+                            <div class="progress">
+                                <span>1:34</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill"></div>
+                                </div>
+                                <span>2:47</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof Strip -->
+    <section class="social-proof">
+        <div class="container">
+            <div class="social-proof-content">
+                <span class="proof-text">Trusted by thousands of happy customers</span>
+                <div class="proof-logos">
+                    <div class="proof-stat">
+                        <span class="stat-number">10,000+</span>
+                        <span class="stat-label">Songs Created</span>
+                    </div>
+                    <div class="proof-stat">
+                        <span class="stat-number">4.9★</span>
+                        <span class="stat-label">Average Rating</span>
+                    </div>
+                    <div class="proof-stat">
+                        <span class="stat-number">24hrs</span>
+                        <span class="stat-label">Delivery Time</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- How It Works -->
-    <section id="how-it-works" class="how-it-works reveal">
+    <section id="how-it-works" class="how-it-works">
         <div class="container">
-            <h2 class="section-title">How We Create Your <span class="highlight">Hilarious Masterpiece</span></h2>
-            <p class="section-subtitle">The easiest way to give an extraordinary funny birthday gift</p>
+            <div class="section-header">
+                <h2>How We Create Your Perfect Song</h2>
+                <p>Three simple steps to an unforgettable musical gift</p>
+            </div>
             
             <div class="steps">
                 <div class="step">
                     <div class="step-number">1</div>
-                    <div class="step-icon">💳</div>
-                    <h3>Pay €10 & Tell Us About Them</h3>
-                    <p>Share their funny quirks, inside jokes, and what makes them special. The more details, the funnier the song!</p>
+                    <div class="step-content">
+                        <h3>Tell Us About Them</h3>
+                        <p>Share their personality, funny moments, and what makes them special. The more details, the more personalized your song becomes.</p>
+                    </div>
                 </div>
                 
                 <div class="step">
                     <div class="step-number">2</div>
-                    <div class="step-icon">🎼</div>
-                    <h3>We Create Their Unique Song</h3>
-                    <p>We craft a personalized, hilarious song incorporating their personality, memories, and funny moments.</p>
+                    <div class="step-content">
+                        <h3>We Create Your Song</h3>
+                        <p>Our professional team crafts a completely unique, funny song that captures their essence and creates lasting memories.</p>
+                    </div>
                 </div>
                 
                 <div class="step">
                     <div class="step-number">3</div>
-                    <div class="step-icon">📧</div>
-                    <h3>Song + Lyrics Delivered Tomorrow</h3>
-                    <p>Wake up to their custom funny song in your inbox. Ready to surprise them with the most memorable gift ever!</p>
-                </div>
-            </div>
-            
-            <div class="cta-section">
-                <button id="checkout-button-2" class="cta-button secondary" onclick="trackCTAClick('how-it-works')">
-                    Start Creating Their Funny Song - €10
-                </button>
-                <p class="urgency-text">⏰ Perfect for birthdays happening soon!</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Genre Selection -->
-    <section id="genres" class="genres reveal">
-        <div class="container">
-            <h2 class="section-title">Choose Their Perfect <span class="highlight">Funny Style</span></h2>
-            <p class="section-subtitle">Every genre can be hilarious in the right hands!</p>
-            
-            <div class="genre-grid">
-                <div class="genre-card">
-                    <div class="genre-icon">🎤</div>
-                    <h3>Pop</h3>
-                    <p>Catchy, upbeat funny songs they'll sing all day</p>
-                </div>
-                
-                <div class="genre-card">
-                    <div class="genre-icon">🎸</div>
-                    <h3>Rock</h3>
-                    <p>High-energy funny anthems that rock</p>
-                </div>
-                
-                <div class="genre-card">
-                    <div class="genre-icon">🎛️</div>
-                    <h3>Electronic</h3>
-                    <p>Modern beats with hilarious lyrics</p>
-                </div>
-                
-                <div class="genre-card">
-                    <div class="genre-icon">🪕</div>
-                    <h3>Folk</h3>
-                    <p>Storytelling funny songs with heart</p>
-                </div>
-                
-                <div class="genre-card">
-                    <div class="genre-icon">🎵</div>
-                    <h3>Hip-Hop</h3>
-                    <p>Clever rap verses about their quirks</p>
-                </div>
-                
-                <div class="genre-card">
-                    <div class="genre-icon">🎹</div>
-                    <h3>R&B</h3>
-                    <p>Smooth, soulful funny serenades</p>
-                </div>
-                
-                <div class="genre-card">
-                    <div class="genre-icon">🤠</div>
-                    <h3>Country</h3>
-                    <p>Down-home humor with twangy charm</p>
+                    <div class="step-content">
+                        <h3>Delivered in 24 Hours</h3>
+                        <p>Receive your high-quality MP3 and lyrics via email. Ready to surprise them with the most memorable gift they'll ever receive.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Social Proof -->
-    <section id="testimonials" class="testimonials reveal">
+    <!-- Sample Songs Section -->
+    <section id="samples" class="samples">
         <div class="container">
-            <h2 class="section-title">Join 200+ People Who Gave The <span class="highlight">Best Gift Ever</span></h2>
-            
-            <div class="testimonials-grid">
-                <div class="testimonial">
-                    <div class="stars">⭐⭐⭐⭐⭐</div>
-                    <p>"OMG! My boyfriend DIED laughing! The song mentioned his weird obsession with collecting bottle caps and his terrible dance moves. He's been playing it for everyone. Best €10 I ever spent!"</p>
-                    <div class="author">- Sarah M., girlfriend of 2 years</div>
-                </div>
-                
-                <div class="testimonial">
-                    <div class="stars">⭐⭐⭐⭐⭐</div>
-                    <p>"I needed a last-minute funny gift for my best friend's 30th. The song was SO personal and hilarious - it mentioned our inside jokes from college. She cried laughing!"</p>
-                    <div class="author">- Mike T., best friend since college</div>
-                </div>
-                
-                <div class="testimonial">
-                    <div class="stars">⭐⭐⭐⭐⭐</div>
-                    <p>"My sister loved it! The songwriter perfectly captured her quirky personality and made her laugh while also making her feel special. Professional quality, delivered exactly when promised."</p>
-                    <div class="author">- Emma L., loving sister</div>
-                </div>
+            <div class="section-header">
+                <h2>Listen to Sample Songs</h2>
+                <p>Hear the quality and creativity that makes us #1</p>
             </div>
             
-            <div class="trust-badges">
-                <div class="badge">
-                    <span class="badge-icon">🔒</span>
-                    <span>Secure Payment</span>
+            <div class="samples-grid">
+                <div class="sample-card">
+                    <img src="assets/images/friends-enjoying.jpg" alt="Birthday celebration">
+                    <div class="sample-info">
+                        <h3>"Birthday Superhero"</h3>
+                        <p>Funny rock song about Sarah's love for pizza and terrible parking</p>
+                        <button class="play-sample">▶ Play Sample</button>
+                    </div>
                 </div>
-                <div class="badge">
-                    <span class="badge-icon">⚡</span>
-                    <span>Next Day Delivery</span>
+                
+                <div class="sample-card">
+                    <img src="assets/images/happy-friends.jpg" alt="Friends laughing">
+                    <div class="sample-info">
+                        <h3>"The Office Legend"</h3>
+                        <p>Comedy pop song about Mike's coffee addiction and dad jokes</p>
+                        <button class="play-sample">▶ Play Sample</button>
+                    </div>
                 </div>
-                <div class="badge">
-                    <span class="badge-icon">🎵</span>
-                    <span>Professional Quality</span>
+                
+                <div class="sample-card">
+                    <img src="assets/images/couple-laughing.jpg" alt="Couple enjoying music">
+                    <div class="sample-info">
+                        <h3>"Dancing Queen Mom"</h3>
+                        <p>Upbeat disco tribute to Linda's dance moves and cooking disasters</p>
+                        <button class="play-sample">▶ Play Sample</button>
+                    </div>
                 </div>
-                <div class="badge">
-                    <span class="badge-icon">😂</span>
-                    <span>Guaranteed Laughs</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews -->
+    <section id="reviews" class="reviews">
+        <div class="container">
+            <div class="section-header">
+                <h2>What Our Customers Say</h2>
+                <p>Real reviews from real people who created unforgettable moments</p>
+            </div>
+            
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                    <p>"OMG! My boyfriend DIED laughing! The song perfectly captured his weird obsession with collecting vintage bottle caps. He's been playing it for everyone. Best €10 I ever spent!"</p>
+                    <div class="reviewer">
+                        <div class="reviewer-info">
+                            <span class="reviewer-name">Sarah M.</span>
+                            <span class="reviewer-location">Amsterdam</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="review-card">
+                    <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                    <p>"I needed a last-minute gift for my best friend's 30th. The song was SO personal and hilarious - mentioned our inside jokes from university. She cried happy tears!"</p>
+                    <div class="reviewer">
+                        <div class="reviewer-info">
+                            <span class="reviewer-name">Mike T.</span>
+                            <span class="reviewer-location">Berlin</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="review-card">
+                    <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                    <p>"Professional quality that exceeded expectations. My sister loved how the song captured her quirky personality. The whole family was in stitches. Will definitely order again!"</p>
+                    <div class="reviewer">
+                        <div class="reviewer-info">
+                            <span class="reviewer-name">Emma L.</span>
+                            <span class="reviewer-location">London</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Final CTA -->
-    <section class="final-cta reveal">
+    <section class="final-cta">
         <div class="container">
             <div class="cta-content">
-                <h2 class="section-title">Ready To Give The Most <span class="highlight">Unforgettable Funny Gift</span>?</h2>
-                <p>Don't give another boring present. Create something hilarious and special that they'll treasure forever.</p>
+                <h2>Ready to Create an Unforgettable Memory?</h2>
+                <p>Join thousands of customers who've given the perfect gift</p>
                 
-                <div class="value-props">
-                    <div class="value-prop">
-                        <span class="value-icon">💸</span>
-                        <span>Only €10 - cheaper than dinner!</span>
+                <div class="cta-features">
+                    <div class="cta-feature">
+                        <span class="feature-icon">💝</span>
+                        <span>Perfect for last-minute gifts</span>
                     </div>
-                    <div class="value-prop">
-                        <span class="value-icon">⏰</span>
-                        <span>Next day delivery - perfect for procrastinators!</span>
+                    <div class="cta-feature">
+                        <span class="feature-icon">🎵</span>
+                        <span>100% unique and personalized</span>
                     </div>
-                    <div class="value-prop">
-                        <span class="value-icon">🎁</span>
-                        <span>100% unique - no one else will have this!</span>
+                    <div class="cta-feature">
+                        <span class="feature-icon">⚡</span>
+                        <span>Delivered in 24 hours</span>
                     </div>
                 </div>
                 
-                <button id="checkout-button-3" class="cta-button primary large" onclick="trackCTAClick('final-cta')">
-                    Create Their Hilarious Song Now - €10
-                    <span class="button-subtext">The best funny birthday gift under €10!</span>
+                <button id="checkout-button-final" class="btn-primary large">
+                    Create Their Song Now - €10
+                    <span class="btn-subtext">Secure payment • 24 hour delivery</span>
                 </button>
                 
-                <p class="guarantee">🛡️ If they don't laugh out loud, we'll make it even funnier!</p>
+                <div class="guarantee">
+                    <span class="guarantee-icon">🛡️</span>
+                    <span>100% satisfaction guarantee or your money back</span>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- FAQ -->
-    <section id="faq" class="faq reveal">
+    <section id="faq" class="faq">
         <div class="container">
-            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="section-header">
+                <h2>Frequently Asked Questions</h2>
+            </div>
             
             <div class="faq-grid">
                 <div class="faq-item">
-                    <h3>How long is the funny song?</h3>
-                    <p>Each personalized song is 2-3 minutes long - the perfect length to be hilarious without overstaying its welcome!</p>
+                    <h3>How long is the song?</h3>
+                    <p>Each personalized song is 2-3 minutes long - the perfect length to tell their story and create lasting laughs!</p>
                 </div>
                 
                 <div class="faq-item">
-                    <h3>What exactly do I get for €10?</h3>
-                    <p>You get a complete custom song file (MP3) plus the full lyrics. Professional quality recording that they can keep forever!</p>
+                    <h3>What exactly do I receive?</h3>
+                    <p>You get a high-quality MP3 file and complete lyrics, delivered via email within 24 hours.</p>
                 </div>
                 
                 <div class="faq-item">
-                    <h3>When will I receive their funny song?</h3>
-                    <p>Next day delivery by email! Order before midnight and wake up to their hilarious custom song in your inbox.</p>
+                    <h3>How do you create the songs?</h3>
+                    <p>Our professional team uses the details you provide to craft a completely unique, funny song that captures their personality.</p>
                 </div>
                 
                 <div class="faq-item">
                     <h3>What music styles are available?</h3>
-                    <p>Pop, Rock, Electronic, Folk, Hip-Hop, R&B, and Country. Every genre can be made hilariously funny!</p>
+                    <p>We create songs in all genres - pop, rock, country, hip-hop, folk, and more. Every style can be made hilariously funny!</p>
                 </div>
                 
                 <div class="faq-item">
-                    <h3>How does the songwriting process work?</h3>
-                    <p>After payment, you fill out a detailed form about them. We create a personalized, funny song based on their personality, quirks, and your shared memories.</p>
+                    <h3>Is this really better than other gifts?</h3>
+                    <p>Absolutely! While other gifts get forgotten, a personalized song becomes more precious over time. It's unique, personal, and creates lasting memories.</p>
                 </div>
                 
                 <div class="faq-item">
-                    <h3>Is this really better than other funny gifts?</h3>
-                    <p>Absolutely! While other funny gifts get old, a personalized song becomes more special over time. It's unique, hilarious, and shows you put real thought into it!</p>
+                    <h3>What if I'm not satisfied?</h3>
+                    <p>We offer a 100% satisfaction guarantee. If you're not completely happy, we'll make it right or refund your money.</p>
                 </div>
             </div>
         </div>
@@ -342,32 +372,32 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>🎵 SongJoke</h3>
-                    <p>Creating hilarious, personalized songs that make birthdays unforgettable.</p>
+                    <h3>SongJoke</h3>
+                    <p>Creating unforgettable musical memories since 2024. Trusted by thousands of happy customers worldwide.</p>
                 </div>
                 
                 <div class="footer-section">
                     <h4>Contact</h4>
-                    <p>Email: hello@songjoke.com</p>
-                    <p>Response time: Within 24 hours</p>
+                    <p>hello@songjoke.com</p>
+                    <p>Response within 24 hours</p>
                 </div>
                 
                 <div class="footer-section">
                     <h4>Quick Links</h4>
                     <a href="#how-it-works">How It Works</a>
-                    <a href="#genres">Genres</a>
-                    <a href="#testimonials">Reviews</a>
+                    <a href="#samples">Sample Songs</a>
+                    <a href="#reviews">Reviews</a>
                     <a href="#faq">FAQ</a>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2024 SongJoke. Making birthdays funnier, one song at a time.</p>
+                <p>&copy; 2024 SongJoke. Creating musical memories, one song at a time.</p>
             </div>
         </div>
     </footer>
 
-    <script src="assets/js/stripe.js?v=20250920111500"></script>
-    <script src="assets/js/main.js?v=20250920111500"></script>
+    <script src="assets/js/stripe.js?v=20250920120000"></script>
+    <script src="assets/js/main.js?v=20250920120000"></script>
 </body>
-</html><!-- Force deployment Sat Sep 20 10:44:53 CEST 2025 -->
+</html>
