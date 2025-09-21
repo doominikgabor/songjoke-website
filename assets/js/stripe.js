@@ -1,9 +1,9 @@
 // Stripe Integration for SongJoke
-// Initialize Stripe with your publishable key
-const stripe = Stripe('pk_test_51S97daPRedbE2ey9ARFypY73B70OsC5Bbc2d9QXFhQjfKLaZeHad8UzkL7ugdEzvi6RIh5VgbvUEFX7yUw5NRt5l00Xv31OLsO');
+// Initialize Stripe with your LIVE publishable key
+const stripe = Stripe('pk_live_51S97dPALWynO9zKwQ657Kan9zDS8BHSWkfIgYWrLOP7rv6KixJk40b9gRc0DgkLGLsxlP4NQs68Yj5AHs2XWzP5700capH6azI');
 
-// Price ID for €10 product
-const PRICE_ID = 'price_1S97pPPRedbE2ey9CvR9FZ4L';
+// LIVE Price ID for €10 product
+const PRICE_ID = 'price_1S9jvrALWynO9zKw0WCjdLYs';
 
 // Stripe Checkout Configuration
 const checkoutConfig = {
