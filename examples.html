@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Song Examples - SongJoke</title>
+    <meta name="description" content="Listen to sample personalized funny birthday songs created by SongJoke">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: white;
+            background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 50%, #60A5FA 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        .nav {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            font-size: 1.8rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: white;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .nav-cta-btn {
+            background: #F59E0B;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+        }
+
+        .nav-cta-btn:hover {
+            background: #D97706;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 4rem 0 2rem;
+        }
+
+        .header h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .header p {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Examples Grid */
+        .examples {
+            padding: 2rem 0 4rem;
+        }
+
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+        }
+
+        .example-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .example-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .example-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .example-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .example-genre {
+            background: #2563EB;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .example-info {
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .lyrics-container {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-left: 4px solid #2563EB;
+        }
+
+        .lyrics-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .lyrics-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-label {
+            color: #2563EB;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .lyrics-text {
+            color: rgba(255, 255, 255, 0.95);
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .play-button {
+            background: #2563EB;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .play-button:hover {
+            background: #1D4ED8;
+            transform: translateY(-2px);
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 4rem 0;
+            background: rgba(0, 0, 0, 0.2);
+            margin-top: 3rem;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .cta-section p {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+        }
+
+        .btn-primary {
+            background: #2563EB;
+            color: white;
+            border: none;
+            padding: 1.25rem 2.5rem;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+        }
+
+        .btn-primary:hover {
+            background: #1D4ED8;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.6);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .examples-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .example-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">
+                    <span class="logo-icon">🎵</span>
+                    <span>SongJoke</span>
+                </a>
+                <div class="nav-menu">
+                    <a href="index.html">Home</a>
+                    <a href="examples.html">Examples</a>
+                    <a href="pricing.html">Pricing</a>
+                    <a href="index.html#faq">FAQ</a>
+                    <button id="nav-cta-button" class="nav-cta-btn">
+                        🎁 Create Magic €10
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <section class="header">
+        <div class="container">
+            <h1>Song Examples</h1>
+            <p>Listen to real personalized funny songs we've created for our happy customers</p>
+        </div>
+    </section>
+
+    <!-- Examples -->
+    <section class="examples">
+        <div class="container">
+            <div class="examples-grid">
+                <!-- Kevin's Birthday Song -->
+                <div class="example-card">
+                    <div class="example-header">
+                        <h3 class="example-title">"Happy Birthday Kevin!"</h3>
+                        <span class="example-genre">Pop/Upbeat</span>
+                    </div>
+                    <p class="example-info">
+                        <strong>About Kevin:</strong> 30th birthday, loves tacos, terrible at poker, but has great friends who love him anyway!
+                    </p>
+                    
+                    <div class="lyrics-container">
+                        <div class="lyrics-section">
+                            <div class="section-label">[Verse]</div>
+                            <div class="lyrics-text">
+                                Kevin's thirty<br>
+                                Look at you<br>
+                                Still can't win a poker hand<br>
+                                It's true<br>
+                                But hey<br>
+                                We love you anyway<br>
+                                Tacos and laughter<br>
+                                It's your day
+                            </div>
+                        </div>
+
+                        <div class="lyrics-section">
+                            <div class="section-label">[Prechorus]</div>
+                            <div class="lyrics-text">
+                                Friends are here<br>
+                                The candles glow<br>
+                                Let's celebrate the star of the show
+                            </div>
+                        </div>
+
+                        <div class="lyrics-section">
+                            <div class="section-label">[Chorus]</div>
+                            <div class="lyrics-text">
+                                Happy Birthday Kevin!<br>
+                                You're the king of thirty heaven<br>
+                                Tacos<br>
+                                Friends<br>
+                                And love we're givin'<br>
+                                Happy Birthday Kevin!
+                            </div>
+                        </div>
+
+                        <div class="lyrics-section">
+                            <div class="section-label">[Verse 2]</div>
+                            <div class="lyrics-text">
+                                You've got wisdom<br>
+                                You've got style<br>
+                                But folding cards still ain't your trial<br>
+                                No big deal<br>
+                                You've got the charm<br>
+                                Life's a party<br>
+                                Sound the alarm
+                            </div>
+                        </div>
+
+                        <div class="lyrics-section">
+                            <div class="section-label">[Prechorus]</div>
+                            <div class="lyrics-text">
+                                Raise a glass<br>
+                                The mood is bright<br>
+                                We're here to make your birthday right
+                            </div>
+                        </div>
+
+                        <div class="lyrics-section">
+                            <div class="section-label">[Chorus]</div>
+                            <div class="lyrics-text">
+                                Happy Birthday Kevin!<br>
+                                You're the king of thirty heaven<br>
+                                Tacos<br>
+                                Friends<br>
+                                And love we're givin'<br>
+                                Happy Birthday Kevin!
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="play-button" onclick="playDemo('kevin')">
+                        ▶ Play Sample (Coming Soon)
+                    </button>
+                </div>
+
+                <!-- Sarah's Coffee Song -->
+                <div class="example-card">
+                    <div class="example-header">
+                        <h3 class="example-title">"Sarah's Coffee Anthem"</h3>
+                        <span class="example-genre">Folk/Acoustic</span>
+                    </div>
+                    <p class="example-info">
+                        <strong>About Sarah:</strong> Coffee addict, morning person, works in marketing, can't function without her daily caffeine fix!
+                    </p>
+                    
+                    <div class="lyrics-container">
+                        <div class="lyrics-section">
+                            <div class="section-label">[Verse]</div>
+                            <div class="lyrics-text">
+                                Sarah wakes up every morning<br>
+                                Eyes still closed, she's barely there<br>
+                                But one sip of coffee magic<br>
+                                Transforms this sleepy millionaire<br>
+                                In marketing she's the queen<br>
+                                But without caffeine, she's just mean
+                            </div>
+                        </div>
+
+                        <div class="lyrics-section">
+                            <div class="section-label">[Chorus]</div>
+                            <div class="lyrics-text">
+                                Happy Birthday Sarah!<br>
+                                Coffee queen extraordinaire<br>
+                                From zombie to superhero<br>
+                                With your mug up in the air<br>
+                                Here's to another year<br>
+                                Of coffee, laughs, and cheer!
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="play-button" onclick="playDemo('sarah')">
+                        ▶ Play Sample (Coming Soon)
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Create Your Own?</h2>
+            <p>Join thousands of customers who've given the perfect personalized gift</p>
+            <button id="checkout-button" class="btn-primary" onclick="triggerPayment()">Create Their Song Now - €10</button>
+        </div>
+    </section>
+
+    <script src="assets/js/stripe.js"></script>
+    <script>
+        function playDemo(songName) {
+            alert(`🎵 Sample audio for ${songName}'s song would play here! \n\nThis is where customers would hear a 30-second preview of the actual song with melody and vocals.`);
+        }
+        
+        function triggerPayment() {
+            // Trigger Stripe payment immediately
+            if (typeof createCheckoutSession === 'function') {
+                createCheckoutSession();
+            } else {
+                alert('Payment system loading... Please try again in a moment.');
+            }
+        }
+
+        // Make CTA button work
+        document.addEventListener('DOMContentLoaded', function() {
+            const navCtaButton = document.getElementById('nav-cta-button');
+            
+            if (navCtaButton) {
+                navCtaButton.addEventListener('click', triggerPayment);
+            }
+        });
+    </script>
+</body>
+</html>

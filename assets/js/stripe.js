@@ -27,7 +27,7 @@ const checkoutConfig = {
 };
 
 // Function to redirect to Stripe Checkout
-function redirectToCheckout() {
+function redirectToCheckout(event) {
     // Add loading state to button
     const button = event.target;
     const originalContent = button.innerHTML;
@@ -167,9 +167,19 @@ if (window.location.hostname === 'localhost' || window.location.hostname === '12
     validateStripeConfig();
 }
 
+// Create checkout session function for HTML onclick
+function createCheckoutSession() {
+    const fakeEvent = { target: document.activeElement || document.querySelector('button') };
+    redirectToCheckout(fakeEvent);
+}
+
 // Export for potential use in other scripts
 window.SongJokeStripe = {
     redirectToCheckout,
+    createCheckoutSession,
     stripe,
     config: checkoutConfig
 };
+
+// Make function globally available
+window.createCheckoutSession = createCheckoutSession;

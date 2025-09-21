@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing - SongJoke</title>
+    <meta name="description" content="Simple, transparent pricing for personalized funny birthday songs. Just €10 for a custom song delivered in 24 hours.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: white;
+            background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 50%, #60A5FA 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        .nav {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            font-size: 1.8rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: white;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .nav-cta-btn {
+            background: #F59E0B;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+        }
+
+        .nav-cta-btn:hover {
+            background: #D97706;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        .header h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .header p {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .price-highlight {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(20px);
+            border-radius: 50px;
+            padding: 1rem 2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .price-highlight .price {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #2563EB;
+        }
+
+        .price-highlight .description {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Pricing Card */
+        .pricing-section {
+            padding: 2rem 0 4rem;
+        }
+
+        .pricing-card {
+            max-width: 500px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #2563EB, #1D4ED8);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: #F59E0B;
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transform: rotate(12deg);
+        }
+
+        .pricing-header h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2rem;
+        }
+
+        .price-display {
+            margin-bottom: 2rem;
+        }
+
+        .price-main {
+            font-size: 4rem;
+            font-weight: 800;
+            color: #2563EB;
+            line-height: 1;
+        }
+
+        .price-currency {
+            font-size: 2rem;
+            vertical-align: top;
+        }
+
+        .price-description {
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 0.5rem;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .features-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .features-list li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-icon {
+            color: #2563EB;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .btn-primary {
+            background: #2563EB;
+            color: white;
+            border: none;
+            padding: 1.25rem 2.5rem;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+            width: 100%;
+            justify-content: center;
+        }
+
+        .btn-primary:hover {
+            background: #1D4ED8;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.6);
+        }
+
+        .guarantee {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 4rem 0;
+            margin-top: 3rem;
+        }
+
+        .faq-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .faq-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .faq-item h3 {
+            color: #2563EB;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .faq-item p {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+        }
+
+        /* Comparison Table */
+        .comparison {
+            margin: 4rem 0;
+        }
+
+        .comparison h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+        }
+
+        .comparison-table {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow-x: auto;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th,
+        .table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .table th {
+            color: #2563EB;
+            font-weight: 600;
+        }
+
+        .table td {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .highlight-col {
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 10px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .pricing-card {
+                margin: 0 1rem;
+                padding: 2rem;
+            }
+
+            .price-main {
+                font-size: 3rem;
+            }
+
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">
+                    <span class="logo-icon">🎵</span>
+                    <span>SongJoke</span>
+                </a>
+                <div class="nav-menu">
+                    <a href="index.html">Home</a>
+                    <a href="examples.html">Examples</a>
+                    <a href="pricing.html">Pricing</a>
+                    <a href="index.html#faq">FAQ</a>
+                    <button id="nav-cta-button" class="nav-cta-btn">
+                        🎁 Create Magic €10
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <section class="header">
+        <div class="container">
+            <h1>Simple, Transparent Pricing</h1>
+            <p>One price, unlimited laughs. No hidden fees, no subscriptions, just pure joy delivered in 24 hours.</p>
+            
+            <div class="price-highlight">
+                <span class="price">€10</span>
+                <span class="description">per personalized song</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Card -->
+    <section class="pricing-section">
+        <div class="container">
+            <div class="pricing-card">
+                <div class="popular-badge">Most Popular</div>
+                
+                <div class="pricing-header">
+                    <h2>Personalized Funny Song</h2>
+                    <p class="pricing-subtitle">Perfect for birthdays, anniversaries, or any special occasion</p>
+                </div>
+
+                <div class="price-display">
+                    <div class="price-main">
+                        <span class="price-currency">€</span>10
+                    </div>
+                    <p class="price-description">One-time payment • No recurring fees</p>
+                </div>
+
+                <ul class="features-list">
+                    <li>
+                        <span class="feature-icon">✓</span>
+                        <span>2-3 minute personalized song</span>
+                    </li>
+                    <li>
+                        <span class="feature-icon">✓</span>
+                        <span>High-quality MP3 download</span>
+                    </li>
+                    <li>
+                        <span class="feature-icon">✓</span>
+                        <span>Complete lyrics included</span>
+                    </li>
+                    <li>
+                        <span class="feature-icon">✓</span>
+                        <span>24-hour delivery guaranteed</span>
+                    </li>
+                    <li>
+                        <span class="feature-icon">✓</span>
+                        <span>100% unique and personalized</span>
+                    </li>
+                    <li>
+                        <span class="feature-icon">✓</span>
+                        <span>Any music genre available</span>
+                    </li>
+                    <li>
+                        <span class="feature-icon">✓</span>
+                        <span>Unlimited revisions if needed</span>
+                    </li>
+                    <li>
+                        <span class="feature-icon">✓</span>
+                        <span>Money-back guarantee</span>
+                    </li>
+                </ul>
+
+                <button id="checkout-button" class="btn-primary">
+                    Create Their Song Now - €10
+                </button>
+
+                <div class="guarantee">
+                    🛡️ <strong>100% Satisfaction Guarantee</strong><br>
+                    If you're not completely happy with your song, we'll make it right or refund your money.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Table -->
+    <section class="comparison">
+        <div class="container">
+            <h2>Why Choose SongJoke?</h2>
+            <div class="comparison-table">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th class="highlight-col">SongJoke</th>
+                            <th>Other Services</th>
+                            <th>DIY</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Price</strong></td>
+                            <td class="highlight-col"><strong>€10</strong></td>
+                            <td>€50-200+</td>
+                            <td>Free (but...)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Delivery Time</strong></td>
+                            <td class="highlight-col"><strong>24 hours</strong></td>
+                            <td>3-7 days</td>
+                            <td>Weeks/months</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Quality</strong></td>
+                            <td class="highlight-col"><strong>Professional</strong></td>
+                            <td>Variable</td>
+                            <td>Depends on skill</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Personalization</strong></td>
+                            <td class="highlight-col"><strong>100% Custom</strong></td>
+                            <td>Templates</td>
+                            <td>If you can</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ease</strong></td>
+                            <td class="highlight-col"><strong>Just fill a form</strong></td>
+                            <td>Complex process</td>
+                            <td>Need skills</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Guarantee</strong></td>
+                            <td class="highlight-col"><strong>Money back</strong></td>
+                            <td>Rarely</td>
+                            <td>None</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h3>Why is this the perfect last-minute gift?</h3>
+                    <p>Our personalized funny birthday songs are delivered in just 24 hours! No more scrambling for generic gifts - create something hilarious and heartfelt that they'll never forget.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>Will this actually make them laugh?</h3>
+                    <p>That's our specialty! We craft hilarious, personalized content that captures their personality perfectly. 98% of our customers say their gift recipient couldn't stop laughing!</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>Is €10 really enough for a custom song?</h3>
+                    <p>Absolutely! While others charge €50-200+, we believe everyone deserves an affordable way to give the perfect funny gift. No hidden fees, no upsells - just €10 for pure joy.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>What makes this better than a regular birthday gift?</h3>
+                    <p>Unlike flowers that die or gifts that collect dust, a funny personalized song creates a memory that lasts forever. It shows you truly know and care about them!</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>What if they don't like funny gifts?</h3>
+                    <p>Even serious people love personalized songs! We can adjust the humor level - from silly and goofy to clever and witty. Everyone appreciates the thought and effort you put in.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>What if I'm not musical at all?</h3>
+                    <p>Perfect! That's exactly why we exist. You just tell us about the person - their hobbies, funny moments, personality - and we handle all the creative work. No musical skills required!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="assets/js/stripe.js"></script>
+    <script>
+        // Make CTA button trigger payment immediately
+        document.getElementById('checkout-button').addEventListener('click', function() {
+            // Trigger Stripe payment immediately
+            if (typeof createCheckoutSession === 'function') {
+                createCheckoutSession();
+            } else {
+                alert('Payment system loading... Please try again in a moment.');
+            }
+        });
+
+        // Make nav CTA button work
+        document.addEventListener('DOMContentLoaded', function() {
+            const navCtaButton = document.getElementById('nav-cta-button');
+            
+            if (navCtaButton) {
+                navCtaButton.addEventListener('click', function() {
+                    if (typeof createCheckoutSession === 'function') {
+                        createCheckoutSession();
+                    } else {
+                        alert('Payment system loading... Please try again in a moment.');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

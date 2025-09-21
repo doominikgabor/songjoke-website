@@ -3,144 +3,857 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SongJoke - Professional Funny Birthday Songs | €10</title>
-    <meta name="description" content="Professional custom funny birthday songs that create unforgettable moments. Voted #1 by thousands of happy customers. Studio quality, delivered in 24 hours.">
-    <meta name="keywords" content="custom songs, funny birthday songs, personalized music, professional songwriters, birthday gifts">
-    
-    <!-- Open Graph Tags -->
-    <meta property="og:title" content="SongJoke - Professional Custom Funny Songs">
-    <meta property="og:description" content="Professional funny birthday songs that create memories. Trusted by thousands.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://songjoke.com">
-    <meta property="og:image" content="https://songjoke.com/assets/images/couple-laughing.jpg">
+    <title>SongJoke - Personalized Funny Birthday Songs | €10</title>
+    <meta name="description" content="The easiest way to create a personalized funny song for your loved ones - fast, fun, and perfect for any occasion!">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Google Analytics 4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XXXXXXXXXX');
-    </script>
-    
-    <script src="https://js.stripe.com/v3/" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="assets/css/styles.css?v=20250920120000">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: white;
+            background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 50%, #60A5FA 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        .nav {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .logo-icon {
+            font-size: 1.8rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: white;
+        }
+
+        .login-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .nav-cta-btn {
+            background: #F59E0B;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+        }
+
+        .nav-cta-btn:hover {
+            background: #D97706;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+        }
+
+        /* Occasions Section */
+        .occasions-section {
+            padding: 4rem 0;
+            background: transparent;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .occasions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .occasion-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .occasion-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .occasion-image {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .occasion-card:hover .occasion-image {
+            transform: scale(1.05);
+            transition: transform 0.4s ease;
+        }
+
+        .birthday-bg {
+            background-image: url('assets/images/birthday-friends.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .birthday-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.2) 0%, rgba(255, 230, 109, 0.2) 100%);
+        }
+
+        .anniversary-bg {
+            background-image: url('assets/images/anniversary-couple.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .anniversary-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 142, 83, 0.2) 0%, rgba(255, 107, 157, 0.2) 100%);
+        }
+
+        .graduation-bg {
+            background-image: url('assets/images/graduation-achievement.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .graduation-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(78, 205, 196, 0.2) 0%, rgba(68, 160, 141, 0.2) 100%);
+        }
+
+        .retirement-bg {
+            background-image: url('assets/images/retirement-joy.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .retirement-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(168, 230, 207, 0.2) 0%, rgba(127, 219, 218, 0.2) 100%);
+        }
+
+        .wedding-bg {
+            background-image: url('assets/images/wedding-celebration.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .wedding-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 234, 167, 0.2) 0%, rgba(221, 160, 221, 0.2) 100%);
+        }
+
+        .holidays-bg {
+            background-image: url('assets/images/music-holidays.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .holidays-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(116, 185, 255, 0.15) 0%, rgba(9, 132, 227, 0.15) 100%);
+        }
+
+        .occasion-content {
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .occasion-content h3 {
+            color: white;
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .occasion-content p {
+            color: rgba(255, 255, 255, 0.95);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .occasion-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            background: rgba(255, 255, 255, 0.25);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .tag:hover {
+            background: rgba(255, 255, 255, 0.35);
+            transform: translateY(-1px);
+        }
+
+        .occasions-cta {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .occasions-note {
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 1rem;
+            font-style: italic;
+        }
+
+        /* Trust Badge */
+        .trust-badge {
+            text-align: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .trust-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .stars {
+            color: #FBBF24;
+            font-size: 1.1rem;
+        }
+
+        .trust-text {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 4rem 0;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: #2563EB;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+        }
+
+        .btn-primary:hover {
+            background: #1D4ED8;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Video/Image Section */
+        .hero-media {
+            position: relative;
+        }
+
+        .video-container {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            background: #1F2937;
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .play-button:hover {
+            background: white;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .play-icon {
+            font-size: 2rem;
+            color: #2563EB;
+            margin-left: 4px;
+        }
+        
+        .video-disclaimer {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            font-size: 0.6rem;
+            color: rgba(255, 255, 255, 0.6);
+            background: rgba(0, 0, 0, 0.5);
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+        .video-overlay {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 1rem;
+            border-radius: 8px;
+            color: white;
+        }
+
+        .video-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .video-subtitle {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .trust-pill {
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            background: #F59E0B;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transform: rotate(12deg);
+        }
+
+        /* Audio Preview Section */
+        .audio-preview-section {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .audio-preview-content h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .audio-preview-content p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .audio-player {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 500px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .audio-player audio {
+            width: 100%;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+        }
+
+        .audio-info strong {
+            display: block;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .audio-info span {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .preview-cta {
+            margin-top: 2rem;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: white;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .step {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: #2563EB;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin: 0 auto 1rem;
+        }
+
+        .step h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .step p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 4rem 0;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .testimonial-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            align-self: center;
+        }
+
+        .testimonial-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .testimonial-content {
+            text-align: center;
+        }
+
+        .testimonial-content .stars {
+            color: #FBBF24;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-content p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .testimonial-author strong {
+            color: white;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .testimonial-author span {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            background: transparent;
+            padding: 4rem 0;
+            margin-top: 0;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .faq-item {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .faq-item h3 {
+            color: black;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .faq-item p {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .nav-cta-btn {
+                display: block;
+                margin: 0 auto;
+                margin-top: 1rem;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .trust-content {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                padding: 0.875rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            .occasions-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .occasion-card {
+                margin: 0 1rem;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .testimonial-card {
+                margin: 0 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
     <nav class="nav">
         <div class="container">
-            <div class="nav-brand">
-                <h1>SongJoke</h1>
-                <div class="nav-tagline">Voted #1 in custom songs by 10,000+ happy customers</div>
-            </div>
-            <div class="nav-menu">
-                <a href="#how-it-works">How It Works</a>
-                <a href="#samples">Sample Songs</a>
-                <a href="#reviews">Reviews</a>
-                <a href="#faq">FAQ</a>
-                <button class="btn-primary nav-cta">Continue My Song</button>
+            <div class="nav-content">
+                <div class="logo">
+                    <span class="logo-icon">🎵</span>
+                    <span>SongJoke</span>
+                </div>
+                <div class="nav-menu">
+                    <a href="#how-it-works">How it works</a>
+                    <a href="examples.html">Examples</a>
+                    <a href="pricing.html">Pricing</a>
+                    <a href="#faq">FAQ</a>
+                    <button id="nav-cta-button" class="nav-cta-btn">
+                        🎁 Create Magic €10
+                    </button>
+                </div>
             </div>
         </div>
     </nav>
+
+    <!-- Trust Badge -->
+    <div class="trust-badge">
+        <div class="container">
+            <div class="trust-content">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <span class="trust-text">People absolutely love these</span>
+                <span class="trust-text">•</span>
+                <span class="trust-text">1000+ happy gift-givers</span>
+            </div>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text">
-                    <div class="hero-badge">
-                        <span>🎵</span>
-                        <span>Professional Custom Songs</span>
-                    </div>
-                    
-                    <h1 class="hero-title">
-                        Create Unforgettable 
-                        <span class="highlight">Funny Birthday Songs</span>
-                    </h1>
-                    
+                    <h1>Turn their special day into pure magic</h1>
                     <p class="hero-subtitle">
-                        The ONLY place for studio-quality custom songs that make people laugh out loud. 
-                        Trusted by thousands of happy customers worldwide.
+                        We'll create a hilarious, one-of-a-kind song that captures everything you love about them. Because generic gifts are boring, and they deserve something that'll make them smile every time they hear it.
                     </p>
                     
-                    <div class="hero-features">
-                        <div class="feature">
-                            <span class="feature-icon">🎤</span>
-                            <span>Professional Quality</span>
-                        </div>
-                        <div class="feature">
-                            <span class="feature-icon">⚡</span>
-                            <span>24 Hour Delivery</span>
-                        </div>
-                        <div class="feature">
-                            <span class="feature-icon">💝</span>
-                            <span>100% Personalized</span>
-                        </div>
-                    </div>
-                    
-                    <div class="hero-cta">
-                        <button id="checkout-button" class="btn-primary large">
-                            Create Their Song Now - €10
-                            <span class="btn-subtext">Join thousands of happy customers</span>
+                    <div class="hero-buttons">
+                        <button id="checkout-button" class="btn-primary">
+                            💝 Make Them Laugh for €10
                         </button>
-                        
-                        <div class="trust-indicators">
-                            <div class="trust-item">
-                                <span class="trust-icon">⭐⭐⭐⭐⭐</span>
-                                <span>4.9/5 from 2,000+ reviews</span>
-                            </div>
-                            <div class="trust-item">
-                                <span class="trust-icon">🔒</span>
-                                <span>Secure payment</span>
-                            </div>
-                        </div>
+                        <a href="#audio-preview" class="btn-secondary">
+                            🎵 Hear Examples
+                        </a>
                     </div>
                 </div>
-                
+
                 <div class="hero-media">
-                    <div class="hero-image">
-                        <img src="assets/images/couple-laughing.jpg" alt="Happy couple enjoying custom song">
-                        <div class="music-player">
-                            <div class="player-header">
-                                <span class="app-name">SongJoke</span>
-                                <span class="more-options">⋯</span>
-                            </div>
-                            <div class="album-art">
-                                <img src="assets/images/happy-friends.jpg" alt="Custom song">
-                            </div>
-                            <div class="song-info">
-                                <h4>Happy Birthday Sarah!</h4>
-                                <p>SongJoke Custom</p>
-                            </div>
-                            <div class="sound-wave">
-                                <div class="wave-bar"></div>
-                                <div class="wave-bar"></div>
-                                <div class="wave-bar"></div>
-                                <div class="wave-bar"></div>
-                                <div class="wave-bar"></div>
-                                <div class="wave-bar"></div>
-                                <div class="wave-bar"></div>
-                                <div class="wave-bar"></div>
-                            </div>
-                            <div class="player-controls">
-                                <button class="control-btn">⏮</button>
-                                <button class="play-btn">⏸</button>
-                                <button class="control-btn">⏭</button>
-                                <button class="control-btn">🔀</button>
-                            </div>
-                            <div class="progress">
-                                <span>1:34</span>
-                                <div class="progress-bar">
-                                    <div class="progress-fill"></div>
-                                </div>
-                                <span>2:47</span>
-                            </div>
+                    <div class="video-container">
+                        <div class="trust-pill">Most Popular</div>
+                        <img src="assets/images/friends-laughing.jpg" alt="Friends laughing together at personalized gift" class="video-thumbnail">
+                        
+                        <div class="play-button" onclick="openYouTubeVideo()">
+                            <span class="play-icon">▶</span>
+                        </div>
+                        
+                        <div class="video-disclaimer">Not our video</div>
+                        
+                        <div class="video-overlay">
+                            <div class="video-title">Imagine their face when they hear this...</div>
+                            <div class="video-subtitle">Real reactions from people hearing their personalized songs</div>
                         </div>
                     </div>
                 </div>
@@ -148,25 +861,124 @@
         </div>
     </section>
 
-    <!-- Social Proof Strip -->
-    <section class="social-proof">
+    <!-- Audio Preview Section -->
+    <section id="audio-preview" class="audio-preview-section">
         <div class="container">
-            <div class="social-proof-content">
-                <span class="proof-text">Trusted by thousands of happy customers</span>
-                <div class="proof-logos">
-                    <div class="proof-stat">
-                        <span class="stat-number">10,000+</span>
-                        <span class="stat-label">Songs Created</span>
-                    </div>
-                    <div class="proof-stat">
-                        <span class="stat-number">4.9★</span>
-                        <span class="stat-label">Average Rating</span>
-                    </div>
-                    <div class="proof-stat">
-                        <span class="stat-number">24hrs</span>
-                        <span class="stat-label">Delivery Time</span>
+            <div class="audio-preview-content">
+                <h3>🎵 Hear what we create</h3>
+                <p>This is what happens when we turn someone's quirks into a song</p>
+                
+                <div class="audio-player">
+                    <audio controls>
+                        <source src="assets/audio-sample.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                    <div class="audio-info">
+                        <strong>"Happy Birthday Kevin"</strong>
+                        <span>A real song we created for someone's brother who loves gaming</span>
                     </div>
                 </div>
+                
+                <div class="preview-cta">
+                    <button class="btn-primary" onclick="triggerPayment()">
+                        🎤 Create Yours Now - €10
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Occasions Section -->
+    <section class="occasions-section">
+        <div class="container">
+            <h2 class="section-title">Perfect for any occasion (seriously, any)</h2>
+            <p class="section-subtitle">From "oops I forgot" moments to planned surprises - we've got you covered</p>
+            
+            <div class="occasions-grid">
+                <div class="occasion-card">
+                    <div class="occasion-image birthday-bg"></div>
+                    <div class="occasion-content">
+                        <h3>Birthdays</h3>
+                        <p>Make them feel like the main character they truly are (even if they're turning 40... again)</p>
+                        <div class="occasion-tags">
+                            <span class="tag">Milestone birthdays</span>
+                            <span class="tag">Surprise parties</span>
+                            <span class="tag">Last-minute panic</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="occasion-card">
+                    <div class="occasion-image anniversary-bg"></div>
+                    <div class="occasion-content">
+                        <h3>Anniversaries</h3>
+                        <p>Celebrate your love story with lyrics that capture all your inside jokes and weird habits</p>
+                        <div class="occasion-tags">
+                            <span class="tag">First anniversary</span>
+                            <span class="tag">Golden years</span>
+                            <span class="tag">Date nights</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="occasion-card">
+                    <div class="occasion-image graduation-bg"></div>
+                    <div class="occasion-content">
+                        <h3>Graduations</h3>
+                        <p>From "finally!" to "what's next?" - celebrate their achievements with a song they'll never forget</p>
+                        <div class="occasion-tags">
+                            <span class="tag">College grad</span>
+                            <span class="tag">PhD defense</span>
+                            <span class="tag">Trade school</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="occasion-card">
+                    <div class="occasion-image retirement-bg"></div>
+                    <div class="occasion-content">
+                        <h3>Retirement</h3>
+                        <p>Time to roast their decades of work stories and celebrate their freedom from meetings</p>
+                        <div class="occasion-tags">
+                            <span class="tag">Office legends</span>
+                            <span class="tag">New adventures</span>
+                            <span class="tag">Golf jokes</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="occasion-card">
+                    <div class="occasion-image wedding-bg"></div>
+                    <div class="occasion-content">
+                        <h3>Weddings</h3>
+                        <p>Create the perfect soundtrack for their special day (way better than Uncle Bob's speech)</p>
+                        <div class="occasion-tags">
+                            <span class="tag">First dance</span>
+                            <span class="tag">Bachelor party</span>
+                            <span class="tag">Reception fun</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="occasion-card">
+                    <div class="occasion-image holidays-bg"></div>
+                    <div class="occasion-content">
+                        <h3>Holidays</h3>
+                        <p>Make any holiday memorable with personalized songs that beat the same old cards</p>
+                        <div class="occasion-tags">
+                            <span class="tag">Christmas magic</span>
+                            <span class="tag">Valentine's love</span>
+                            <span class="tag">Family gatherings</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="occasions-cta">
+                <button class="btn-primary" onclick="triggerPayment()">
+                    ✨ Start Their Perfect Song - €10
+                </button>
+                <p class="occasions-note">Any occasion, any style, any level of embarrassing - we're here for it! 🎵</p>
             </div>
         </div>
     </section>
@@ -174,116 +986,72 @@
     <!-- How It Works -->
     <section id="how-it-works" class="how-it-works">
         <div class="container">
-            <div class="section-header">
-                <h2>How We Create Your Perfect Song</h2>
-                <p>Three simple steps to an unforgettable musical gift</p>
-            </div>
-            
+            <h2 class="section-title">How it works</h2>
             <div class="steps">
                 <div class="step">
                     <div class="step-number">1</div>
-                    <div class="step-content">
-                        <h3>Tell Us About Them</h3>
-                        <p>Share their personality, funny moments, and what makes them special. The more details, the more personalized your song becomes.</p>
-                    </div>
+                    <h3>Tell us their story</h3>
+                    <p>What makes them laugh? Their weird obsessions? That embarrassing thing they did last year? The more you tell us, the more we can make them snort-laugh.</p>
                 </div>
-                
                 <div class="step">
                     <div class="step-number">2</div>
-                    <div class="step-content">
-                        <h3>We Create Your Song</h3>
-                        <p>Our professional team crafts a completely unique, funny song that captures their essence and creates lasting memories.</p>
-                    </div>
+                    <h3>We'll send you a sneak peek</h3>
+                    <p>Within 24 hours, you'll get a 1-minute preview. Most customers love it immediately, but if you want changes, we'll adjust it up to 3 times until it's exactly what you envisioned.</p>
                 </div>
-                
                 <div class="step">
                     <div class="step-number">3</div>
-                    <div class="step-content">
-                        <h3>Delivered in 24 Hours</h3>
-                        <p>Receive your high-quality MP3 and lyrics via email. Ready to surprise them with the most memorable gift they'll ever receive.</p>
-                    </div>
+                    <h3>Make it exactly right</h3>
+                    <p>Love it? Boom, you get the full song right away! Want us to roast them harder? Make it more sentimental? We'll keep tweaking it (up to 3 times) until you're obsessed with it.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Sample Songs Section -->
-    <section id="samples" class="samples">
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
         <div class="container">
-            <div class="section-header">
-                <h2>Listen to Sample Songs</h2>
-                <p>Hear the quality and creativity that makes us #1</p>
-            </div>
+            <h2 class="section-title">Real reactions from real people</h2>
+            <p class="section-subtitle">See why people can't stop smiling (and sharing)</p>
             
-            <div class="samples-grid">
-                <div class="sample-card">
-                    <img src="assets/images/friends-enjoying.jpg" alt="Birthday celebration">
-                    <div class="sample-info">
-                        <h3>"Birthday Superhero"</h3>
-                        <p>Funny rock song about Sarah's love for pizza and terrible parking</p>
-                        <button class="play-sample">▶ Play Sample</button>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-image">
+                        <img src="assets/images/woman-laughing.jpg" alt="Sarah laughing at her song" />
+                    </div>
+                    <div class="testimonial-content">
+                        <div class="stars">⭐⭐⭐⭐⭐</div>
+                        <p>"I literally cried laughing! They captured my husband's obsession with his lawn mower perfectly. He's played it 20 times already!"</p>
+                        <div class="testimonial-author">
+                            <strong>Sarah M.</strong>
+                            <span>Anniversary gift</span>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="sample-card">
-                    <img src="assets/images/happy-friends.jpg" alt="Friends laughing">
-                    <div class="sample-info">
-                        <h3>"The Office Legend"</h3>
-                        <p>Comedy pop song about Mike's coffee addiction and dad jokes</p>
-                        <button class="play-sample">▶ Play Sample</button>
-                    </div>
-                </div>
-                
-                <div class="sample-card">
-                    <img src="assets/images/couple-laughing.jpg" alt="Couple enjoying music">
-                    <div class="sample-info">
-                        <h3>"Dancing Queen Mom"</h3>
-                        <p>Upbeat disco tribute to Linda's dance moves and cooking disasters</p>
-                        <button class="play-sample">▶ Play Sample</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Reviews -->
-    <section id="reviews" class="reviews">
-        <div class="container">
-            <div class="section-header">
-                <h2>What Our Customers Say</h2>
-                <p>Real reviews from real people who created unforgettable moments</p>
-            </div>
-            
-            <div class="reviews-grid">
-                <div class="review-card">
-                    <div class="review-stars">⭐⭐⭐⭐⭐</div>
-                    <p>"OMG! My boyfriend DIED laughing! The song perfectly captured his weird obsession with collecting vintage bottle caps. He's been playing it for everyone. Best €10 I ever spent!"</p>
-                    <div class="reviewer">
-                        <div class="reviewer-info">
-                            <span class="reviewer-name">Sarah M.</span>
-                            <span class="reviewer-location">Amsterdam</span>
+                <div class="testimonial-card">
+                    <div class="testimonial-image">
+                        <img src="assets/images/man-headphones.jpg" alt="Mike enjoying his personalized song" />
+                    </div>
+                    <div class="testimonial-content">
+                        <div class="stars">⭐⭐⭐⭐⭐</div>
+                        <p>"Best €10 I've ever spent! My sister couldn't stop laughing about the lyrics about her terrible cooking. Worth every penny!"</p>
+                        <div class="testimonial-author">
+                            <strong>Mike T.</strong>
+                            <span>Sister's birthday</span>
                         </div>
                     </div>
                 </div>
-                
-                <div class="review-card">
-                    <div class="review-stars">⭐⭐⭐⭐⭐</div>
-                    <p>"I needed a last-minute gift for my best friend's 30th. The song was SO personal and hilarious - mentioned our inside jokes from university. She cried happy tears!"</p>
-                    <div class="reviewer">
-                        <div class="reviewer-info">
-                            <span class="reviewer-name">Mike T.</span>
-                            <span class="reviewer-location">Berlin</span>
-                        </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-image">
+                        <img src="assets/images/wedding-joy.jpg" alt="Wedding couple celebrating" />
                     </div>
-                </div>
-                
-                <div class="review-card">
-                    <div class="review-stars">⭐⭐⭐⭐⭐</div>
-                    <p>"Professional quality that exceeded expectations. My sister loved how the song captured her quirky personality. The whole family was in stitches. Will definitely order again!"</p>
-                    <div class="reviewer">
-                        <div class="reviewer-info">
-                            <span class="reviewer-name">Emma L.</span>
-                            <span class="reviewer-location">London</span>
+                    <div class="testimonial-content">
+                        <div class="stars">⭐⭐⭐⭐⭐</div>
+                        <p>"Our wedding song had everyone in tears from laughing so hard. The DJ played it three times! Still our favorite thing from the whole day."</p>
+                        <div class="testimonial-author">
+                            <strong>Emma & James</strong>
+                            <span>Wedding surprise</span>
                         </div>
                     </div>
                 </div>
@@ -291,113 +1059,109 @@
         </div>
     </section>
 
-    <!-- Final CTA -->
-    <section class="final-cta">
+    <!-- FAQ Section -->
+    <section id="faq" class="faq-section">
         <div class="container">
-            <div class="cta-content">
-                <h2>Ready to Create an Unforgettable Memory?</h2>
-                <p>Join thousands of customers who've given the perfect gift</p>
-                
-                <div class="cta-features">
-                    <div class="cta-feature">
-                        <span class="feature-icon">💝</span>
-                        <span>Perfect for last-minute gifts</span>
-                    </div>
-                    <div class="cta-feature">
-                        <span class="feature-icon">🎵</span>
-                        <span>100% unique and personalized</span>
-                    </div>
-                    <div class="cta-feature">
-                        <span class="feature-icon">⚡</span>
-                        <span>Delivered in 24 hours</span>
-                    </div>
-                </div>
-                
-                <button id="checkout-button-final" class="btn-primary large">
-                    Create Their Song Now - €10
-                    <span class="btn-subtext">Secure payment • 24 hour delivery</span>
-                </button>
-                
-                <div class="guarantee">
-                    <span class="guarantee-icon">🛡️</span>
-                    <span>100% satisfaction guarantee or your money back</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ -->
-    <section id="faq" class="faq">
-        <div class="container">
-            <div class="section-header">
-                <h2>Frequently Asked Questions</h2>
-            </div>
-            
+            <h2 class="section-title">Frequently Asked Questions</h2>
             <div class="faq-grid">
                 <div class="faq-item">
-                    <h3>How long is the song?</h3>
-                    <p>Each personalized song is 2-3 minutes long - the perfect length to tell their story and create lasting laughs!</p>
+                    <h3>Wait, how does this actually work?</h3>
+                    <p>Simple! We make a 1-minute preview first (within 24 hours) so you can hear if we nailed their personality. Love it? You get the full song instantly. Think we missed the mark? Just tell us what to fix and we'll redo it until you're dancing in your kitchen.</p>
                 </div>
                 
                 <div class="faq-item">
-                    <h3>What exactly do I receive?</h3>
-                    <p>You get a high-quality MP3 file and complete lyrics, delivered via email within 24 hours.</p>
+                    <h3>What if I don't like the demo?</h3>
+                    <p>No problem! You get up to 3 free revisions. Just tell us what you'd like changed - different style, more humor, different personality focus - and we'll recreate the song until you're completely happy with it.</p>
                 </div>
                 
                 <div class="faq-item">
-                    <h3>How do you create the songs?</h3>
-                    <p>Our professional team uses the details you provide to craft a completely unique, funny song that captures their personality.</p>
+                    <h3>How many changes can I request?</h3>
+                    <p>You get up to 3 revisions included in your €10 price. Most customers love the first version, but we want you to be 100% satisfied! Each revision is based on your specific feedback and preferences.</p>
                 </div>
                 
                 <div class="faq-item">
-                    <h3>What music styles are available?</h3>
-                    <p>We create songs in all genres - pop, rock, country, hip-hop, folk, and more. Every style can be made hilariously funny!</p>
+                    <h3>What makes this the perfect last-minute gift?</h3>
+                    <p>Our personalized funny songs are delivered in just 24 hours! No more scrambling for generic gifts - create something hilarious and heartfelt that they'll never forget. Perfect for procrastinators!</p>
                 </div>
                 
                 <div class="faq-item">
-                    <h3>Is this really better than other gifts?</h3>
-                    <p>Absolutely! While other gifts get forgotten, a personalized song becomes more precious over time. It's unique, personal, and creates lasting memories.</p>
+                    <h3>But will they actually think it's funny?</h3>
+                    <p>Oh honey, we don't just make them laugh - we make them ugly-cry-laugh. The kind where they can't breathe and have to replay it for everyone they know. 98% of people say their person couldn't stop giggling for days.</p>
                 </div>
                 
                 <div class="faq-item">
-                    <h3>What if I'm not satisfied?</h3>
-                    <p>We offer a 100% satisfaction guarantee. If you're not completely happy, we'll make it right or refund your money.</p>
+                    <h3>€10? That seems too good to be true...</h3>
+                    <p>We know, right? While other places charge ridiculous amounts (€50-200+), we think everyone should be able to give an amazing gift without going broke. No sneaky fees, no "premium" packages - just €10 for something they'll treasure forever.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>What information do you need about the person?</h3>
+                    <p>The more details, the funnier the song! Tell us about their hobbies, personality quirks, funny habits, memorable moments, job, or anything that makes them unique. We turn these into hilarious lyrics!</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>What if they don't like funny gifts?</h3>
+                    <p>Even serious people love personalized songs! We can adjust the humor level - from silly and goofy to clever and witty. Everyone appreciates the thought and effort you put into creating something just for them.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>What music styles do you offer?</h3>
+                    <p>Any genre you want! Pop, rock, country, rap, folk, jazz, or even opera. Just let us know their favorite music style or what would make them laugh most, and we'll match that vibe perfectly.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>What if I'm not musical at all?</h3>
+                    <p>Perfect! That's exactly why we exist. You just tell us about the person - their hobbies, funny moments, personality - and we handle all the creative work. No musical skills required from you!</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>Can I order multiple songs for different people?</h3>
+                    <p>Yes! Each song is €10. Order as many as you want for different people or occasions. Great for families, friend groups, or when you want to give everyone a personalized gift!</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>What format will I receive the song in?</h3>
+                    <p>You'll get a high-quality MP3 file that works on any device, plus the complete lyrics as a PDF. Perfect for sharing via text, email, social media, or playing at parties!</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>SongJoke</h3>
-                    <p>Creating unforgettable musical memories since 2024. Trusted by thousands of happy customers worldwide.</p>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Contact</h4>
-                    <p>hello@songjoke.com</p>
-                    <p>Response within 24 hours</p>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <a href="#how-it-works">How It Works</a>
-                    <a href="#samples">Sample Songs</a>
-                    <a href="#reviews">Reviews</a>
-                    <a href="#faq">FAQ</a>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2024 SongJoke. Creating musical memories, one song at a time.</p>
-            </div>
-        </div>
-    </footer>
+    <script src="assets/js/stripe.js"></script>
+    <script>
+        function openYouTubeVideo() {
+            window.open('https://youtube.com/shorts/JQcMgTRv89E?si=0KqrSTvq9Mo_Sqh2', '_blank');
+        }
 
-    <script src="assets/js/stripe.js?v=20250920120000"></script>
-    <script src="assets/js/main.js?v=20250920120000"></script>
+        function triggerPayment() {
+            if (typeof createCheckoutSession === 'function') {
+                createCheckoutSession();
+            } else {
+                alert('Payment system loading... Please try again in a moment.');
+            }
+        }
+
+        // Make all CTA buttons trigger payment immediately
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkoutButton = document.getElementById('checkout-button');
+            const navCtaButton = document.getElementById('nav-cta-button');
+            
+            function triggerPayment() {
+                if (typeof createCheckoutSession === 'function') {
+                    createCheckoutSession();
+                } else {
+                    alert('Payment system loading... Please try again in a moment.');
+                }
+            }
+            
+            if (checkoutButton) {
+                checkoutButton.addEventListener('click', triggerPayment);
+            }
+            
+            if (navCtaButton) {
+                navCtaButton.addEventListener('click', triggerPayment);
+            }
+        });
+    </script>
 </body>
 </html>
