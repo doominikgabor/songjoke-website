@@ -1163,21 +1163,41 @@
         document.addEventListener('DOMContentLoaded', function() {
             console.log('Setting up payment buttons...');
             
-            // Find all payment buttons and add click handlers
-            const paymentButtons = document.querySelectorAll('#checkout-button, #nav-cta-button, [onclick*="triggerPayment"], [onclick*="createCheckoutSession"]');
+            // Find ALL possible payment buttons
+            const paymentButtons = document.querySelectorAll(
+                '#checkout-button, #nav-cta-button, ' +
+                '.btn-primary, .nav-cta-btn, ' +
+                '[onclick*="triggerPayment"], [onclick*="createCheckoutSession"], ' +
+                'button:contains("€10"), button:contains("Create"), button:contains("Magic")'
+            );
             
+            // Also find buttons by text content
+            const allButtons = document.querySelectorAll('button');
+            allButtons.forEach(button => {
+                const text = button.textContent || button.innerText || '';
+                if (text.includes('€10') || text.includes('Create') || text.includes('Magic') || text.includes('Start')) {
+                    // Add event listener
+                    button.removeAttribute('onclick');
+                    button.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        console.log('Payment button clicked:', text.trim());
+                        triggerPayment();
+                    });
+                    console.log('Added click handler to button with text:', text.trim());
+                }
+            });
+            
+            // Also handle the specific ID buttons
             paymentButtons.forEach(button => {
-                // Remove any existing onclick attributes
                 button.removeAttribute('onclick');
-                
-                // Add event listener
                 button.addEventListener('click', function(e) {
                     e.preventDefault();
+                    console.log('Payment button clicked:', button.id || button.className);
                     triggerPayment();
                 });
-                
-                console.log('Added click handler to button:', button.id || button.className);
             });
+            
+            console.log('Payment button setup complete');
         });
     </script>
 </body>
