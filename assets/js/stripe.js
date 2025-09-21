@@ -133,7 +133,45 @@ document.addEventListener('DOMContentLoaded', async function() {
     // Pre-load Stripe
     await initializeStripe();
     
+    // Initialize payment buttons after Stripe is ready
+    initializePaymentButtons();
+    
     console.log('✅ Payment system ready!');
 });
+
+// Initialize payment buttons
+function initializePaymentButtons() {
+    console.log('🎵 Setting up payment buttons...');
+    
+    // Find all buttons with €10 or payment-related text
+    const allButtons = document.querySelectorAll('button');
+    let buttonCount = 0;
+    
+    allButtons.forEach(button => {
+        const text = button.textContent || button.innerText || '';
+        const hasPaymentText = text.includes('€10') || 
+                             text.includes('Create') || 
+                             text.includes('Magic') || 
+                             text.includes('Start') ||
+                             text.includes('Laugh');
+        
+        if (hasPaymentText) {
+            // Remove any existing onclick
+            button.removeAttribute('onclick');
+            
+            // Add new click handler
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log('💳 Payment button clicked:', text.trim());
+                createCheckoutSession();
+            });
+            
+            buttonCount++;
+            console.log(`✅ Added handler to button: "${text.trim()}"`);
+        }
+    });
+    
+    console.log(`🎯 Payment system ready! ${buttonCount} buttons configured.`);
+}
 
 console.log('🎵 SongJoke Stripe integration loaded successfully');

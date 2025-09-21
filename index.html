@@ -1147,51 +1147,16 @@
             window.open('https://youtube.com/shorts/JQcMgTRv89E?si=0KqrSTvq9Mo_Sqh2', '_blank');
         }
 
-        // Simple payment function that directly calls Stripe
+        // Backup payment function (all functionality moved to stripe.js)
         function triggerPayment() {
-            console.log('🛒 Payment button clicked!');
+            console.log('🛒 Backup payment function called');
             if (typeof createCheckoutSession === 'function') {
                 createCheckoutSession();
             } else {
-                console.log('⏳ createCheckoutSession not ready, waiting...');
-                setTimeout(triggerPayment, 500);
+                console.log('⏳ createCheckoutSession still not ready');
+                alert('Payment system loading... Please wait a moment and try again.');
             }
         }
-
-        // Initialize when DOM loads
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('🎵 Setting up payment buttons...');
-            
-            // Find all buttons with €10 or payment-related text
-            const allButtons = document.querySelectorAll('button');
-            let buttonCount = 0;
-            
-            allButtons.forEach(button => {
-                const text = button.textContent || button.innerText || '';
-                const hasPaymentText = text.includes('€10') || 
-                                     text.includes('Create') || 
-                                     text.includes('Magic') || 
-                                     text.includes('Start') ||
-                                     text.includes('Laugh');
-                
-                if (hasPaymentText) {
-                    // Remove any existing onclick
-                    button.removeAttribute('onclick');
-                    
-                    // Add new click handler
-                    button.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        console.log('💳 Payment button clicked:', text.trim());
-                        triggerPayment();
-                    });
-                    
-                    buttonCount++;
-                    console.log(`✅ Added handler to button: "${text.trim()}"`);
-                }
-            });
-            
-            console.log(`🎯 Payment system ready! ${buttonCount} buttons configured.`);
-        });
     </script>
 </body>
 </html>
