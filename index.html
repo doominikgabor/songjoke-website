@@ -1150,44 +1150,34 @@
         }
 
         function triggerPayment() {
-            // Wait for Stripe to load properly
+            console.log('triggerPayment called');
             if (typeof createCheckoutSession === 'function') {
                 createCheckoutSession();
-            } else if (typeof Stripe !== 'undefined') {
-                // Stripe is loaded but function isn't ready yet, try again in 500ms
-                setTimeout(triggerPayment, 500);
             } else {
-                alert('Payment system loading... Please try again in a moment.');
+                console.log('createCheckoutSession not ready, waiting...');
+                setTimeout(triggerPayment, 500);
             }
         }
 
-        // Wait for both DOM and Stripe to be ready
-        function initializePaymentButtons() {
-            const checkoutButton = document.getElementById('checkout-button');
-            const navCtaButton = document.getElementById('nav-cta-button');
+        // Initialize payment buttons when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Setting up payment buttons...');
             
-            if (checkoutButton) {
-                checkoutButton.addEventListener('click', triggerPayment);
-            }
+            // Find all payment buttons and add click handlers
+            const paymentButtons = document.querySelectorAll('#checkout-button, #nav-cta-button, [onclick*="triggerPayment"], [onclick*="createCheckoutSession"]');
             
-            if (navCtaButton) {
-                navCtaButton.addEventListener('click', triggerPayment);
-            }
-            
-            // Also add to any other payment buttons
-            const allPaymentButtons = document.querySelectorAll('[onclick*="triggerPayment"], [onclick*="createCheckoutSession"]');
-            allPaymentButtons.forEach(button => {
-                button.removeAttribute('onclick'); // Remove inline onclick
-                button.addEventListener('click', triggerPayment);
+            paymentButtons.forEach(button => {
+                // Remove any existing onclick attributes
+                button.removeAttribute('onclick');
+                
+                // Add event listener
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    triggerPayment();
+                });
+                
+                console.log('Added click handler to button:', button.id || button.className);
             });
-        }
-
-        // Initialize when DOM is ready
-        document.addEventListener('DOMContentLoaded', initializePaymentButtons);
-        
-        // Also initialize when Stripe script loads (backup)
-        window.addEventListener('load', function() {
-            setTimeout(initializePaymentButtons, 1000);
         });
     </script>
 </body>

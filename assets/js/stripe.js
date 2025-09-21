@@ -1,6 +1,15 @@
 // Stripe Integration for SongJoke
-// Initialize Stripe with your LIVE publishable key
-const stripe = Stripe('pk_live_51S97dPALWynO9zKwQ657Kan9zDS8BHSWkfIgYWrLOP7rv6KixJk40b9gRc0DgkLGLsxlP4NQs68Yj5AHs2XWzP5700capH6azI');
+// Wait for Stripe to load, then initialize
+let stripe;
+
+function initializeStripe() {
+    if (typeof Stripe !== 'undefined') {
+        stripe = Stripe('pk_live_51S97dPALWynO9zKwQ657Kan9zDS8BHSWkfIgYWrLOP7rv6KixJk40b9gRc0DgkLGLsxlP4NQs68Yj5AHs2XWzP5700capH6azI');
+        console.log('Stripe initialized successfully');
+        return true;
+    }
+    return false;
+}
 
 // LIVE Price ID for €10 product
 const PRICE_ID = 'price_1S9jvrALWynO9zKw0WCjdLYs';
@@ -28,12 +37,20 @@ const checkoutConfig = {
 
 // Function to redirect to Stripe Checkout
 function redirectToCheckout(event) {
+    // Ensure Stripe is initialized
+    if (!stripe && !initializeStripe()) {
+        alert('Payment system loading... Please try again in a moment.');
+        return;
+    }
+
     // Add loading state to button
-    const button = event.target;
-    const originalContent = button.innerHTML;
-    button.classList.add('loading');
-    button.innerHTML = 'Processing...';
-    button.disabled = true;
+    const button = event ? event.target : document.activeElement;
+    const originalContent = button ? button.innerHTML : '';
+    if (button) {
+        button.classList.add('loading');
+        button.innerHTML = 'Processing...';
+        button.disabled = true;
+    }
 
     // Track the payment attempt
     if (typeof gtag !== 'undefined') {
@@ -169,9 +186,23 @@ if (window.location.hostname === 'localhost' || window.location.hostname === '12
 
 // Create checkout session function for HTML onclick
 function createCheckoutSession() {
-    const fakeEvent = { target: document.activeElement || document.querySelector('button') };
-    redirectToCheckout(fakeEvent);
+    console.log('createCheckoutSession called');
+    redirectToCheckout();
 }
+
+// Initialize when DOM loads
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, initializing Stripe...');
+    // Try to initialize Stripe immediately
+    if (!initializeStripe()) {
+        // If Stripe isn't ready, wait a bit and try again
+        setTimeout(function() {
+            if (!initializeStripe()) {
+                console.warn('Stripe failed to load after waiting');
+            }
+        }, 1000);
+    }
+});
 
 // Export for potential use in other scripts
 window.SongJokeStripe = {
