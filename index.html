@@ -1140,77 +1140,28 @@
         </div>
     </footer>
 
-    <!-- Stripe.js directly from CDN -->
-    <script src="https://js.stripe.com/v3/"></script>
     <script>
         function openYouTubeVideo() {
             window.open('https://youtube.com/shorts/JQcMgTRv89E?si=0KqrSTvq9Mo_Sqh2', '_blank');
         }
 
-        // Embedded Stripe Integration - No external files - v2.0
-        console.log('🎵 SongJoke payment system loading v2.0...');
+        // SIMPLE PAYMENT SOLUTION - Direct Stripe Payment Link
+        console.log('🎵 SongJoke payment system v3.0 - Direct Payment Links');
         
-        // Stripe configuration
-        const STRIPE_KEY = 'pk_live_51S97dPALWynO9zKwQ657Kan9zDS8BHSWkfIgYWrLOP7rv6KixJk40b9gRc0DgkLGLsxlP4NQs68Yj5AHs2XWzP5700capH6azI';
-        const PRICE_ID = 'price_1S9jvrALWynO9zKw0WCjdLYs';
-        
-        let stripe;
-        
-        // Initialize Stripe when script loads
-        function initStripe() {
-            if (typeof Stripe !== 'undefined') {
-                stripe = Stripe(STRIPE_KEY);
-                console.log('✅ Stripe initialized successfully');
-                setupPaymentButtons();
-                return true;
-            }
-            console.log('⏳ Stripe not ready yet...');
-            return false;
+        // Direct payment function - No Stripe.js needed!
+        function createCheckoutSession() {
+            console.log('🚀 Redirecting to Stripe payment page...');
+            
+            // Direct link to your Stripe payment page  
+            const paymentUrl = 'https://buy.stripe.com/test_28o8wIgLZf1c2I03cd';
+            
+            // Open in same window
+            window.location.href = paymentUrl;
         }
         
-        // Payment function
-        async function createCheckoutSession() {
-            console.log('🚀 Starting payment process...');
-            
-            if (!stripe) {
-                console.log('❌ Stripe not initialized');
-                alert('Payment system not ready. Please refresh the page.');
-                return;
-            }
-            
-            try {
-                console.log('🎯 Redirecting to Stripe checkout...');
-                
-                const { error } = await stripe.redirectToCheckout({
-                    lineItems: [{
-                        price: PRICE_ID,
-                        quantity: 1,
-                    }],
-                    mode: 'payment',
-                    successUrl: window.location.origin + '/success.html',
-                    cancelUrl: window.location.origin + '/',
-                    currency: 'eur',
-                    submitType: 'pay',
-                    billingAddressCollection: 'auto',
-                    metadata: {
-                        product: 'funny_birthday_song',
-                        service: 'songjoke'
-                    }
-                });
-                
-                if (error) {
-                    console.error('❌ Stripe error:', error);
-                    alert('Payment failed: ' + error.message);
-                }
-            } catch (err) {
-                console.error('❌ Payment error:', err);
-                alert('Payment system error. Please try again.');
-            }
-        }
-        
-        // Setup payment buttons
-        function setupPaymentButtons() {
-            console.log('🎵 Setting up payment buttons...');
+        // Setup payment buttons when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('📦 Setting up payment buttons...');
             
             const allButtons = document.querySelectorAll('button');
             let count = 0;
@@ -1228,26 +1179,10 @@
                 }
             });
             
-            console.log(`🎯 ${count} payment buttons ready!`);
-        }
-        
-        // Initialize when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('📦 DOM loaded, initializing...');
-            
-            // Try to initialize immediately
-            if (!initStripe()) {
-                // If Stripe isn't ready, wait and try again
-                setTimeout(() => {
-                    if (!initStripe()) {
-                        console.log('❌ Stripe failed to load');
-                        setTimeout(initStripe, 1000);
-                    }
-                }, 500);
-            }
+            console.log(`🎯 ${count} payment buttons ready! No CORS issues!`);
         });
         
-        // Backup function for onclick attributes
+        // Backup function
         function triggerPayment() {
             createCheckoutSession();
         }
