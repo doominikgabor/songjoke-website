@@ -1140,64 +1140,57 @@
         </div>
     </footer>
 
-    <!-- Load Stripe.js from CDN first -->
-    <script src="https://js.stripe.com/v3/"></script>
-    <!-- Then load our custom Stripe integration -->
+    <!-- Load our custom Stripe integration with embedded Stripe -->
     <script src="assets/js/stripe.js"></script>
     <script>
         function openYouTubeVideo() {
             window.open('https://youtube.com/shorts/JQcMgTRv89E?si=0KqrSTvq9Mo_Sqh2', '_blank');
         }
 
+        // Simple payment function that directly calls Stripe
         function triggerPayment() {
-            console.log('triggerPayment called');
+            console.log('🛒 Payment button clicked!');
             if (typeof createCheckoutSession === 'function') {
                 createCheckoutSession();
             } else {
-                console.log('createCheckoutSession not ready, waiting...');
+                console.log('⏳ createCheckoutSession not ready, waiting...');
                 setTimeout(triggerPayment, 500);
             }
         }
 
-        // Initialize payment buttons when DOM is ready
+        // Initialize when DOM loads
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('Setting up payment buttons...');
+            console.log('🎵 Setting up payment buttons...');
             
-            // Find ALL possible payment buttons
-            const paymentButtons = document.querySelectorAll(
-                '#checkout-button, #nav-cta-button, ' +
-                '.btn-primary, .nav-cta-btn, ' +
-                '[onclick*="triggerPayment"], [onclick*="createCheckoutSession"], ' +
-                'button:contains("€10"), button:contains("Create"), button:contains("Magic")'
-            );
-            
-            // Also find buttons by text content
+            // Find all buttons with €10 or payment-related text
             const allButtons = document.querySelectorAll('button');
+            let buttonCount = 0;
+            
             allButtons.forEach(button => {
                 const text = button.textContent || button.innerText || '';
-                if (text.includes('€10') || text.includes('Create') || text.includes('Magic') || text.includes('Start')) {
-                    // Add event listener
+                const hasPaymentText = text.includes('€10') || 
+                                     text.includes('Create') || 
+                                     text.includes('Magic') || 
+                                     text.includes('Start') ||
+                                     text.includes('Laugh');
+                
+                if (hasPaymentText) {
+                    // Remove any existing onclick
                     button.removeAttribute('onclick');
+                    
+                    // Add new click handler
                     button.addEventListener('click', function(e) {
                         e.preventDefault();
-                        console.log('Payment button clicked:', text.trim());
+                        console.log('💳 Payment button clicked:', text.trim());
                         triggerPayment();
                     });
-                    console.log('Added click handler to button with text:', text.trim());
+                    
+                    buttonCount++;
+                    console.log(`✅ Added handler to button: "${text.trim()}"`);
                 }
             });
             
-            // Also handle the specific ID buttons
-            paymentButtons.forEach(button => {
-                button.removeAttribute('onclick');
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    console.log('Payment button clicked:', button.id || button.className);
-                    triggerPayment();
-                });
-            });
-            
-            console.log('Payment button setup complete');
+            console.log(`🎯 Payment system ready! ${buttonCount} buttons configured.`);
         });
     </script>
 </body>
